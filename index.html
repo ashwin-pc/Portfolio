@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Ashwin's Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Cabin+Condensed:400,700" rel="stylesheet">
+
+  <!-- Custom -->
+  <link rel="stylesheet" href="./styles/app.css">
+  <link rel="stylesheet" href="./styles/snow.css">
+</head>
+
+<body>
+  <!--Nav Bar -->
+  <div class="nav">
+    <div class="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+
+  <!-- Home Section -->
+  <div class="page-section" id="homePage">
+    <div id="snow"></div>
+    <h1>Designed by <span class="red">Ashwin</span></h1>
+  </div>
+  <!-- Home Section -->
+  <div class="page-section" id="nextSection">
+  </div>
+
+  <!-- Arrow Down -->
+  <a href="#nextSection">
+  <div id="arrowDown">
+    <div id="arrow"></div>
+  </div>
+  </a>
+
+  <!-- Scripts -->
+  <script src="./scripts/vendor/zenscroll-min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    var edgeOffset = -2; // px
+    zenscroll.setup(null, edgeOffset)
+  </script>
+</body>
+
+</html>
