@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Cabin+Condensed:400,700|Lato:100|Roboto+Condensed:300|Yanone+Kaffeesatz:200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Cabin+Condensed:400,700|Lato:100|Roboto+Condensed:300|Yanone+Kaffeesatz:200" rel="stylesheet">
 
   <!-- Custom -->
   <link rel="stylesheet" href="./styles/flickity.min.css">
@@ -28,8 +28,9 @@
   <!-- Home Section -->
   <div class="page-section" id="homePage">
     <div id="snow"></div>
-    <h1>Designed by <span class="red">Ashwin</span></h1>
+    <h1 class="title">Designed by <span class="red">Ashwin</span></h1>
   </div>
+
   <!-- Web Section -->
   <div class="page-section" id="webDesign">
     <h1>WEB DESIGNS</h1>
@@ -44,8 +45,14 @@
     </div>
   </div>
 
+  <!-- Blog Section -->
+  <div class="page-section" id="blog">
+    <h1>Blog</h1>
+    <p>What's on your mind?</p>
+  </div>
+
   <!-- Arrow Down -->
-  <a href="#webDesign">
+  <a onclick="nextSection()">
   <div id="arrowDown">
     <div id="arrow"></div>
   </div>
@@ -57,6 +64,14 @@
   <script type="text/javascript">
     var edgeOffset = -2; // px
     zenscroll.setup(null, edgeOffset)
+  </script>
+  <script type="text/javascript">
+    function nextSection() {
+      var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var scrollVal = h * (Math.floor(scrollTop/h) + 1) + 4;
+      zenscroll.toY(scrollVal);
+    }
   </script>
 </body>
 

@@ -13,6 +13,28 @@ body {
   background-size: cover;
 }
 
+.page-section > h1 {
+  margin-top: 100px;
+  margin-bottom: 60px;
+  font-size: 43pt;
+}
+
+.page-section > p {
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .page-section > h1 {
+    margin-top: 100px;
+    margin-bottom: 40px;
+    font-size: 32pt;
+  }
+  .page-section > p {
+    font-size: 13pt;
+  }
+}
+
 .nav {
   z-index: 10;
   position: fixed;
@@ -33,9 +55,11 @@ body {
   background-attachment: fixed;
 }
 
-#homePage > h1 {
+#homePage > .title {
   text-align: center;
   margin-top: 50vh;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 /*----------------------------- WebDesign -----------------------------*/
@@ -50,17 +74,8 @@ body {
 }
 
 #webDesign > h1 {
-  margin-top: 100px;
-  margin-bottom: 60px;
   font-weight: 100;
-  font-size: 43pt;
 }
-
-#webDesign > p {
-  font-size: 20pt;
-  font-weight: bold;
-}
-
 /* carousel */
 .carousel {
   margin-top: 100px;
@@ -81,22 +96,27 @@ body {
 }
 
 @media only screen and (max-width: 600px)  {
-  #webDesign > h1 {
-    margin-top: 100px;
-    margin-bottom: 40px;
-    font-weight: 100;
-    font-size: 32pt;
-  }
-
-  #webDesign > p {
-    font-size: 13pt;
-  }
   .carousel {
     margin-top: 50px;
   }
   .carousel-cell {
     margin-right: 50px;
   }
+}
+
+/*----------------------------- Blog Styles -----------------------------*/
+#blog {
+  position: relative;
+  z-index: 2;
+  font-family: 'Lato', sans-serif;
+  color: white;
+  text-align: center;
+  background-image: url('../assets/blogWallpaper1.jpg');
+  background-position: center;
+}
+
+#blog > h1 {
+  font-family:"Libre Baskerville",Georgia,serif;
 }
 
 /*----------------------------- UI styles -----------------------------*/
