@@ -1,68 +1,132 @@
 body {
-    margin: 0px;
-    font-family: 'Cabin Condensed', sans-serif;
+  margin: 0px;
+  font-family: 'Cabin Condensed', sans-serif;
 }
 
 .page-section {
-    padding: 1px;
-    width: 100vw;
-    height: 100vh;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  padding: 1px;
+  width: 100vw;
+  height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .nav {
-    position: fixed;
-    width: 100%;
-    top: 0;
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
 /* Common styles */
 .red {
-    color: #C51838 !important;
+  color: #C51838 !important;
 }
 
 
-/* Homepage Styles */
+/*----------------------------- Homepage Styles -----------------------*/
 
 #homePage {
-    background-image: url('../assets/homepageRaw2.jpg');
+  background-image: url('../assets/homepageRaw2.jpg');
+  background-attachment: fixed;
 }
 
 #homePage > h1 {
-    text-align: center;
-    margin-top: 50vh;
+  text-align: center;
+  margin-top: 50vh;
 }
 
+/*----------------------------- WebDesign -----------------------------*/
+#webDesign {
+  position: relative;
+  z-index: 2;
+  font-family: 'Lato', sans-serif;
+  color: white;
+  text-align: center;
+  background-size: auto;
+  background-image: url('../assets/dark_exa.png');
+}
 
+#webDesign > h1 {
+  margin-top: 100px;
+  margin-bottom: 60px;
+  font-weight: 100;
+  font-size: 43pt;
+}
+
+#webDesign > p {
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+/* carousel */
+.carousel {
+  margin-top: 100px;
+}
+.carousel-cell {
+  width: 200px;
+  height: 200px;
+  margin-right: 100px;
+  border: 5px solid white;
+  background: #000;
+  border-radius: 1px;
+  counter-increment: carousel-cell;
+  transition: width 0.5s ease-in;
+}
+
+.carousel-cell.is-selected {
+  /*border-color: transparent;*/
+}
+
+@media only screen and (max-width: 600px)  {
+  #webDesign > h1 {
+    margin-top: 100px;
+    margin-bottom: 40px;
+    font-weight: 100;
+    font-size: 32pt;
+  }
+
+  #webDesign > p {
+    font-size: 13pt;
+  }
+  .carousel {
+    margin-top: 50px;
+  }
+  .carousel-cell {
+    margin-right: 50px;
+  }
+}
+
+/*----------------------------- UI styles -----------------------------*/
 /* Arrow Styles */
 #arrow::after {
-    content: "";
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-right: 0.2em solid black;
-    border-bottom: 0.2em solid black;
-    transform: translate(17px,14px) rotate(45deg);
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-right: 0.2em solid black;
+  border-bottom: 0.2em solid black;
+  transform: translate(17px,14px) rotate(45deg);
 }
 
 #arrowDown {
-    width: 50px;
-    height: 50px;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    margin-left: -25px;
-    background-color: #fff;
-    border-radius: 50%;
-    box-shadow: -1px 3px 11px -3px;
-    -webkit-animation: bounce 2s ease-in-out infinite;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  z-index: 10;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: -1px 3px 11px -3px;
+  -webkit-animation: bounce 2s ease-in-out infinite;
 	-moz-animation: bounce 2s ease-in-out infinite;
 	-ms-animation: bounce 2s ease-in-out infinite;
 	animation: bounce 2s ease-in-out infinite;
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 @-moz-keyframes bounce {
@@ -115,4 +179,5 @@ body {
     height: 4px;
     width: 100%;
     display: block;
+    mix-blend-mode: difference;
 }
