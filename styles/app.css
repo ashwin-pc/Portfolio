@@ -1,10 +1,18 @@
-body {
-  margin: 0px;
+html, body {
+  margin: 0;
+  padding: 0;
   font-family: 'Cabin Condensed', sans-serif;
 }
 
+* {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+
 .page-section {
-  padding: 1px;
+  position: relative;
+  padding: 1px 0px;
   width: 100vw;
   height: 100vh;
   min-height: 50vw;
@@ -236,6 +244,55 @@ body {
   .article > .article-image {
     display: none;
   }
+}
+
+/*----------------------------- Graphics styles -----------------------*/
+#graphics {
+  text-align: center;
+  background-color: white;
+  font-family: 'Lato', sans-serif;
+  color: #8a8a8a;
+}
+#graphics > .img-container {
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  height: 33.33vw;
+  width: 100%;
+  overflow-y: hidden;
+}
+#graphics > .img-container > .image {
+  display: inline-block;
+  width: 16.66%;
+  height: 16.66vw;
+  background-color: #dcdcdc;
+  float: left;
+  border: 1px solid #e6e6e6;
+}
+
+@media only screen and (max-width: 1370px) {
+  #graphics > .img-container { height: 40vw; }
+  #graphics > .img-container > .image {
+    width: 20%;
+    height: 20vw;
+  }
+}
+@media only screen and (max-width: 969px) {
+  #graphics > .img-container { height: 50vw; }
+  #graphics > .img-container > .image {
+    width: 25%;
+    height: 25vw;
+  }
+}
+@media only screen and (max-width: 770px) {
+  #graphics > .img-container { height: 66.66vw; }
+  #graphics > .img-container > .image {
+    width: 33.33%;
+    height: 33.33vw;
+  }
+}
+@media only screen and (max-width: 480px) {
+  #graphics > .img-container { height: 100vw; }
 }
 
 /*----------------------------- UI styles -----------------------------*/
