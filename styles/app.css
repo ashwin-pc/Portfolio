@@ -50,6 +50,9 @@ body {
 .black {
   color: black !important;
 }
+.invisible {
+  visibility: hidden;
+}
 .ellipsis {
   text-overflow: ellipsis;
   /* Required for text-overflow to do anything */
