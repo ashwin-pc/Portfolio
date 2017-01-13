@@ -15,18 +15,18 @@ function checkScroll() {
   var h = video.offsetHeight, scrollTop, diff;
 
   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  diff = rect.top - h;
+  diff = rect.top - 100;
 
   if (diff < 0) {
-    setTimeout(function () {
-      if (!played) {
-        console.log("playing");
-        video.play();
-        played = true;
-      }
-    },1000);
+    if (!played) {
+      console.log("playing");
+      video.play();
+      played = true;
+    }
   } else {
-    video.pause();
+    if (!played) {
+      video.pause();
+    }
   }
 }
 
@@ -47,3 +47,7 @@ window.addEventListener('touchstart', function videoStart() {
   // remove from the window and call the function we are removing
   this.removeEventListener('touchstart', videoStart);
 });
+
+// zenscroll
+var edgeOffset = -2; // px
+zenscroll.setup(null, edgeOffset)

@@ -14,8 +14,8 @@ html, body {
   position: relative;
   padding: 1px 0px;
   width: 100vw;
-  height: 100vh;
-  min-height: 50vw;
+  /*height: 100vh;*/
+  min-height: 100vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -113,6 +113,7 @@ html, body {
 /* carousel */
 .carousel {
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 .carousel-cell {
   width: 200px;
@@ -125,9 +126,6 @@ html, body {
   transition: width 0.5s ease-in;
 }
 
-.carousel-cell.is-selected {
-  /*border-color: transparent;*/
-}
 
 @media only screen and (max-width: 600px)  {
   .carousel {
@@ -160,6 +158,9 @@ html, body {
   font-family: 'Lato', sans-serif;
 }
 
+.article-container {
+  margin-bottom: 50px;
+}
 .article-container > .article-group {
   display: inline-block;
 }
@@ -218,11 +219,6 @@ html, body {
     height: 130px;
   }
 }
-@media only screen and (max-width: 969px) {
-  .article-container{
-    padding-top: 0px;
-  }
-}
 
 @media only screen and (max-width: 770px) {
   .article-container > .article-group {
@@ -257,10 +253,13 @@ html, body {
 #graphics > .img-container {
   position: absolute;
   bottom: 0;
-  z-index: 10;
+  /*z-index: 10;*/
   height: 33.33vw;
   width: 100%;
   overflow-y: hidden;
+}
+#graphics > p {
+  margin-bottom: 40vw;
 }
 #graphics > .img-container > .image {
   display: inline-block;
@@ -272,6 +271,7 @@ html, body {
 }
 
 @media only screen and (max-width: 1370px) {
+  #graphics > p { margin-bottom: 45vw; }
   #graphics > .img-container { height: 40vw; }
   #graphics > .img-container > .image {
     width: 20%;
@@ -279,6 +279,7 @@ html, body {
   }
 }
 @media only screen and (max-width: 969px) {
+  #graphics > p { margin-bottom: 55vw; }
   #graphics > .img-container { height: 50vw; }
   #graphics > .img-container > .image {
     width: 25%;
@@ -286,6 +287,7 @@ html, body {
   }
 }
 @media only screen and (max-width: 770px) {
+  #graphics > p { margin-bottom: 70vw; }
   #graphics > .img-container { height: 66.66vw; }
   #graphics > .img-container > .image {
     width: 33.33%;
