@@ -40,14 +40,21 @@ window.addEventListener('touchstart', function videoStart() {
 });
 
 // Arrow for next section function
+var sections = document.getElementsByClassName("page-section");
+
 function nextSection() {
-  var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
-  var page = (Math.floor(scrollTop/h) + 1);
-  var scrollVal = h * page;
-  zenscroll.toY(scrollVal);
+
+  // Scroll Logic
+  for (var i = 0; i < sections.length; i++) {
+    if (sections[i].offsetTop > scrollTop) {
+      // Scroll location
+      zenscroll.to(sections[i]);
+      break;
+    }
+  }
 }
 
 // zenscroll
 var edgeOffset = -2; // px
-zenscroll.setup(null, edgeOffset)
+zenscroll.setup(null, edgeOffset);
