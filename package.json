@@ -1,0 +1,24 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "potrfolio page",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashwin-pc/Portfolio.git"
+  },
+  "author": "Ashwin P Chandran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashwin-pc/Portfolio/issues"
+  },
+  "homepage": "https://github.com/ashwin-pc/Portfolio#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^3.1.0"
+  }
+}

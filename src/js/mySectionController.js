@@ -1,12 +1,3 @@
-// Arrow for next section function
-function nextSection() {
-  var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
-  var page = (Math.floor(scrollTop/h) + 1);
-  var scrollVal = h * page;
-  zenscroll.toY(scrollVal);
-}
-
 // My section video
 var video = document.getElementById('cover-video');
 var played = false;
@@ -47,7 +38,3 @@ window.addEventListener('touchstart', function videoStart() {
   // remove from the window and call the function we are removing
   this.removeEventListener('touchstart', videoStart);
 });
-
-// zenscroll
-var edgeOffset = -2; // px
-zenscroll.setup(null, edgeOffset)
