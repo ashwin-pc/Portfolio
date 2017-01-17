@@ -10,3 +10,17 @@ firebase.initializeApp(config);
 
 // Initialize references
 var dbRefWebsites = firebase.database().ref().child('websites');
+
+
+// Ajax
+function $ajax(url, callback) {
+  var oReq = new XMLHttpRequest();
+  oReq.open('GET', url, true);
+  oReq.responseType = 'json';
+  oReq.send();
+
+  // Success response
+  oReq.onload = function (e) {
+    callback(null, e.target.response);
+  };
+}
