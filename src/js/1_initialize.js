@@ -10,7 +10,7 @@ firebase.initializeApp(config);
 
 // Initialize references
 var dbRefWebsites = firebase.database().ref().child('websites');
-
+var dbRefGraphics = firebase.database().ref().child('graphics');
 
 // Ajax
 function $ajax(url, callback) {

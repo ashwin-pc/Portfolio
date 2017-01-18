@@ -10,3 +10,35 @@ The story about a nerd who had a flair for art. went crazy at the opportunity to
 ### 1. Web Section
 
 Googles `Firebase` was used for storing website metadata and preview images. Preview images were generated using screen capture  `Shift + Cmd + 4`  and photoshops `Scripts > Image Processor` function.
+
+### 2. Blog Section
+
+This sections data is automatically pulled from Wrodpress. the Latest 3 posts are queried. to attach image to them, use featured image feature.
+
+### 3. Graphics Section
+
+`Firebase's` `Storage` is used to store images and thumbnails. a automator workflow is used to generate thumbnails.
+
+The download URL of these files must be saved in firebase `Database`
+
+## Firebase database structure
+
+````json
+    {
+      "graphics" : [ {
+          "fullLink" : "",
+          "link" : "",
+          "name" : ""
+      },{
+          ...
+      }],
+      "websites" : [ {
+          "img" : "",
+          "link" : "",
+          "name" : ""
+      }, {
+          ...
+      } ]
+    }
+
+````

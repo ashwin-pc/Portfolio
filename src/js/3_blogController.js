@@ -29,7 +29,6 @@ function _makeArticles(articleArr) {
     }
 
     // Article Text, Date and Summary
-    console.log(articleObj);
     articleTitle.innerHTML = articleObj.title.rendered;
     articleDate.innerHTML = date.toDateString();
     articleSummary.innerHTML = _stripHTML(articleObj.content.rendered).substring(0,100);
