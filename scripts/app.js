@@ -219,17 +219,26 @@ function updateTile() {
   }
   
 }
-// My section video
+/*
+ * My Section Controller
+ * purpose: To display Me.
+ * TODO: Something better for mail
+ * 
+ */
+
 var video = document.getElementById('cover-video');
 var arrowDown = document.getElementById('arrowDown');
 var mailMe = document.getElementById('mailMe');
+
 var played = false;
+
+// Scroll spy
 function checkScroll() {
   var rect  = video.getBoundingClientRect();
   var h = video.offsetHeight, diff;
 
+  // Play video 100px from bottom of page
   diff = rect.top - 100;
-
   if (diff < 0) {
     if (!played) {
       console.log("playing");
@@ -242,8 +251,7 @@ function checkScroll() {
     }
   }
 
-  // Swap between arrow and mail icon
-  
+  // Swap between arrow and mail icon 200px from bottom of page
   if (rect.top < 200) {
     if (arrowDown.classList.contains('animate')) {
       arrowDown.classList.remove('animate')
