@@ -240,7 +240,7 @@ html, body {
       #graphics > .img-container > .image:hover > div, #graphics > .img-container > .image:focus > div {
         transform: scale(1.1); }
       #graphics > .img-container > .image .live-tile {
-        transition: transform 0.5s ease-in-out; }
+        transition: transform 0.2s ease-in-out; }
         #graphics > .img-container > .image .live-tile.start {
           animation: tile 0.5s ease-in-out; }
   #graphics > p {
