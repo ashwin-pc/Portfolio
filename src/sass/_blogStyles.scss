@@ -1,0 +1,131 @@
+/*----------------------------- Blog Styles -----------------------------*/
+#blog {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  background-image: url('../assets/blog1.jpg');
+  background-position: center;
+
+  // flex
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  > h1 {
+    font-family:"Libre Baskerville",Georgia,serif;
+    background-color: rgba(0, 0, 0, 0.67);
+    padding: 8px;
+    margin-top: 50px;
+  }
+
+  > p > span {
+    background-color: rgba(169, 103, 5, 0.84);
+    padding: 5px 45px;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .article-container {
+    margin-bottom: 50px;
+
+    > .article-group {
+      display: inline-block;
+    }
+
+    .article {
+      display: inline-block;
+      width: 300px;
+      height: 270px;
+      background: rgba(255, 255, 255, 0.83);
+      margin: 20px;
+      color: black;
+      text-align: left;
+      box-shadow: 0px 1px 28px -5px black;
+
+      > .article-image {
+        height: 200px;
+        /*background-color: #282f35;*/
+        background-image: url('../assets/dark_fish_skin.png');
+      }
+
+      > .article-text {
+        padding: 12px;
+
+        .article-title {
+          display: inline-block;
+          width: 58%;
+        }
+
+        .article-date {
+          top: -3px;
+          text-align: right;
+          color: #a96705;
+          display: inline-block;
+          width: 40%;
+          position: relative;
+        }
+
+        .article-summary {
+          /*padding-top: 10px;*/
+          color: #797777;
+        }
+
+      }
+
+      &:last-child {
+        background-color: rgba(255, 255, 255, 0.9);
+
+        > .article-image {
+          visibility:hidden;
+        }
+      }
+    }
+  }
+}
+
+/* media rules */
+@media only screen and (max-width: 1370px) {
+  #blog {
+    .article-container{
+      padding-top: 70px;
+
+      .article {
+        width: 200px;
+        height: 185px;
+        font-size: 11px;
+
+        > .article-image {
+          height: 130px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  #blog {
+    .article-container > .article-group {
+      display: block;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #blog {
+    .article-container {
+      padding-top: 20px;
+      .article {
+        height: auto;
+        width: 100%;
+        font-size:20px;
+        margin: 0px;
+        box-shadow: none;
+        border-bottom: 1px solid #cecece;
+    
+        > .article-image {
+          display: none;
+        }
+      }
+    }
+  }
+}

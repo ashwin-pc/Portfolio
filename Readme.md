@@ -41,3 +41,8 @@ The download URL of these files must be saved in firebase `Database`
     }
 
 ````
+
+## Gulp tasks
+
+1. Gulp watch: during development, builds all dependencies and compiles all files and also starts watching the files.
+2. Gulp dist: to build a distributable copy of the project into a folder named dist.

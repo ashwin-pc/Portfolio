@@ -1,0 +1,46 @@
+/*----------------------------- My Section -----------------------------*/
+#my-section {
+  background-color: #000;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  > video.fullscreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -10;
+    transform: translate(-50%, -50%);
+    transition: 1s opacity;
+    background-color: white;
+  }
+  .stopfade {
+    opacity: .5;
+  }
+
+  > #my-dp {
+    margin-left: auto;
+    margin-right: auto;
+    background: url(../assets/mydp.jpg) center center;
+    background-size: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 0px solid white;
+    box-shadow: 1px 1px 23px -6px black;
+  }
+
+  > h1, > p {
+    text-align: center;
+    color: white;
+  }
+
+  > h1 {
+    margin-bottom: 10px;
+  }
+}
