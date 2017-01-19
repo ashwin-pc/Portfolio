@@ -8,7 +8,6 @@
   > .img-container {
     position: absolute;
     bottom: 0;
-    /*z-index: 10;*/
     height: 33.33vw;
     width: 100%;
     overflow-y: hidden;
@@ -20,19 +19,24 @@
       background-color: #dcdcdc;
       float: left;
       overflow: hidden;
-      // border: 1px solid #e6e6e6;
 
       > div {
         height: 100%;
         width: 100%;
-        // background-color: black; /* fallback color */
         background-position: center;
         background-size: cover;
-        transition: transform 0.2s ease-in-out;
       }
 
       &:hover > div, &:focus > div  {
         transform: scale(1.1);
+      }
+
+      // Livetile styles
+      .live-tile {
+        transition: transform 0.5s ease-in-out;
+        &.start {
+          animation: tile 0.5s ease-in-out;
+        }
       }
     }
   }
@@ -88,4 +92,20 @@
 }
 @media only screen and (max-width: 480px) {
   #graphics > .img-container { height: 100vw; }
+}
+
+@keyframes tile {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  49% {
+    transform: rotateY(90deg);
+  }
+  50% {
+    transform: rotateY(270deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
 }
