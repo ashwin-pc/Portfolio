@@ -219,5 +219,5 @@ function nextSection() {
 }
 
 // zenscroll
-var edgeOffset = -2; // px
+var edgeOffset = 0; // px
 zenscroll.setup(null, edgeOffset);

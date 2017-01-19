@@ -24,3 +24,15 @@ gulp.task('js:watch', function () {
 
 gulp.task('default', [ 'sass', 'scripts' ]);
 gulp.task('watch', [ 'sass:watch', 'js:watch' ]);
+
+gulp.task('dist', ['sass', 'scripts'], function() {
+  gulp.src('./scripts/**/*')
+    .pipe(gulp.dest('./dist/scripts/'));
+  gulp.src('./styles/**/*')
+    .pipe(gulp.dest('./dist/styles/'));
+  gulp.src('./assets/**/*')
+    .pipe(gulp.dest('./dist/assets/'));
+  gulp.src('./index.html')
+    .pipe(gulp.dest('./dist/'));
+  return;
+});

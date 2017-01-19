@@ -1,0 +1,73 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cabin Condensed', sans-serif;
+}
+
+* {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+
+.page-section {
+  position: relative;
+  padding: 1px 0px;
+  width: 100vw;
+  /*height: 100vh;*/
+  min-height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+
+  > h1 {
+    margin-top: 100px;
+    margin-bottom: 60px;
+    font-size: 43pt;
+  }
+
+  > p {
+    font-size: 20pt;
+    font-weight: bold;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+  .page-section {
+    > h1 {
+      margin-top: 100px;
+      margin-bottom: 40px;
+      font-size: 32pt;
+    }
+    > p {
+      font-size: 13pt;
+    }
+  }
+}
+
+.nav {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+/* Common styles */
+.red {
+  color: #C51838 !important;
+}
+.black {
+  color: black !important;
+}
+.invisible {
+  visibility: hidden;
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
