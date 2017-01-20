@@ -257,8 +257,9 @@ function checkScroll() {
       arrowDown.classList.remove('animate')
     }
 
-    transform(arrowDown, 'scale', (rect.top/200));
-    transform(mailMe, 'scale', (1 - rect.top/200));
+    var bottom = (rect.top < 0) ? 0 : rect.top;
+    transform(arrowDown, 'scale', (bottom/200));
+    transform(mailMe, 'scale', (1 - bottom/200));
   } else {
     if (!arrowDown.classList.contains('animate')) {
       arrowDown.classList.add('animate');
