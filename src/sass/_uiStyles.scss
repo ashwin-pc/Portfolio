@@ -21,13 +21,24 @@
   background-color: #fff;
   border-radius: 50%;
   box-shadow: -1px 3px 11px -3px;
-  -webkit-animation: bounce 2s ease-in-out infinite;
-	-moz-animation: bounce 2s ease-in-out infinite;
-	-ms-animation: bounce 2s ease-in-out infinite;
-	animation: bounce 2s ease-in-out infinite;
   opacity: 0.8;
+
+  &.animate {
+    -webkit-animation: bounce 2s ease-in-out infinite;
+    -moz-animation: bounce 2s ease-in-out infinite;
+    -ms-animation: bounce 2s ease-in-out infinite;
+    animation: bounce 2s ease-in-out infinite;
+  }
 }
 
+#mailMe {
+  transform: scale(0);
+  position: fixed;
+  z-index: 10;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -32px;
+}
 @-moz-keyframes bounce {
   0%, 100% {
     -moz-transform: translateY(0);
