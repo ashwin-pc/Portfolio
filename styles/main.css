@@ -79,6 +79,9 @@ html, body {
   font-size: 2em;
   font-weight: bold; }
 
+#snow {
+  position: fixed; }
+
 /*----------------------------- WebDesign -----------------------------*/
 #webDesign {
   display: flex;
