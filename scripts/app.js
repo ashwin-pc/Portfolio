@@ -160,7 +160,7 @@ function _makeTiles(objectArray) {
     cellFront.style.backgroundImage = "url(" + object.link + ")";
 
     // Append
-    cell.append(cellFront);
+    cell.appendChild(cellFront);
 
     // Store the details in object Array
     tileImgArr = objectArray;
@@ -175,7 +175,7 @@ function _makeTiles(objectArray) {
     });
 
     // Append cells to document fragment
-    docFrag.append(cell);
+    docFrag.appendChild(cell);
   });
   return docFrag;
 }
