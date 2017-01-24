@@ -244,7 +244,7 @@ html, body {
       #graphics > .img-container > .image .live-tile {
         transition: transform 0.2s ease-in-out; }
         #graphics > .img-container > .image .live-tile.start {
-          animation: tile 0.5s ease-in-out; }
+          animation: tile 0.5s linear; }
   #graphics > p {
     margin-bottom: 40vw; }
   #graphics #imageViewer {

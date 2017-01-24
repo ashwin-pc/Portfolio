@@ -115,8 +115,9 @@ function _makeArticles(wpArticles) {
     articleSummary.innerHTML = _stripHTML(wpArticles[index].content.rendered).substring(0,100);
 
     // Link binding to article
+    article.dataset.link = wpArticles[index].link;
     article.addEventListener('click', function () {
-      window.open(wpArticles[index].link, '_blank');
+      window.open(this.dataset.link, '_blank');
     });
 
   }

@@ -35,7 +35,7 @@
       .live-tile {
         transition: transform 0.2s ease-in-out;
         &.start {
-          animation: tile 0.5s ease-in-out;
+          animation: tile 0.5s linear;
         }
       }
     }
