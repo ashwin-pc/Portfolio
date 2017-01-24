@@ -6,7 +6,7 @@ function nextSection() {
 
   // Scroll Logic
   for (var i = 0; i < sections.length; i++) {
-    if (sections[i].offsetTop > scrollTop) {
+    if (sections[i].offsetTop > (scrollTop + 5)) {
       // Scroll location
       zenscroll.to(sections[i]);
       break;

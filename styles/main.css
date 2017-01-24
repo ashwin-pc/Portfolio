@@ -11,7 +11,6 @@ html, body {
 .page-section {
   position: relative;
   padding: 1px 0px;
-  width: 100vw;
   /*height: 100vh;*/
   min-height: 100vh;
   -webkit-background-size: cover;

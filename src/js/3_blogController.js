@@ -11,34 +11,40 @@ function _stripHTML(html)
    return tmp.textContent || tmp.innerText || "";
 }
 
-function _makeArticles(articleArr) {
+function _makeArticles(wpArticles) {
   var blogContainer = document.getElementById("blogContainer");
   var articles = blogContainer.getElementsByClassName("article");
-  articleArr.forEach(function (articleObj, index) {
-    var articleTitle = articles[index].children[1].children[0].children[0];
-    var articleDate = articles[index].children[1].children[0].children[1];
-    var articleSummary = articles[index].children[1].children[1];
-    var date = new Date(articleObj.modified);
+  
+  for (index = 0; index < wpArticles.length; index++) {
+    var article = articles[index];
+    var articleTitle = article.children[1].children[0].children[0];
+    var articleDate = article.children[1].children[0].children[1];
+    var articleSummary = article.children[1].children[1];
+    var date = new Date(wpArticles[index].modified);
 
     // Article image
-    if (document.documentElement.clientWidth > 480 && articleObj.featured_media !== 0) {
-      $ajax(articleObj._links['wp:featuredmedia'][0].href, function (err, image) {
-        articles[index].children[0].style.backgroundImage = "url(" + image.media_details.sizes.thumbnail.source_url + ")";
-        articles[index].children[0].style.backgroundSize = "cover";
+    if (document.documentElement.clientWidth > 480 && wpArticles[index].featured_media !== 0) {
+      var ob = {
+        url: wpArticles[index]._links['wp:featuredmedia'][0].href,
+        ref: article
+      }; 
+      $ajax(ob, function (err, image, article) {
+        article.children[0].style.backgroundImage = "url(" + image.media_details.sizes.thumbnail.source_url + ")";
+        article.children[0].style.backgroundSize = "cover";
       });
     }
 
     // Article Text, Date and Summary
-    articleTitle.innerHTML = articleObj.title.rendered;
+    articleTitle.innerHTML = wpArticles[index].title.rendered;
     articleDate.innerHTML = date.toDateString();
-    articleSummary.innerHTML = _stripHTML(articleObj.content.rendered).substring(0,100);
+    articleSummary.innerHTML = _stripHTML(wpArticles[index].content.rendered).substring(0,100);
 
     // Link binding to article
-    articles[index].addEventListener('click', function () {
-      window.open(articleObj.link, '_blank');
+    article.addEventListener('click', function () {
+      window.open(wpArticles[index].link, '_blank');
     });
 
-  });
+  }
 
   // 4th article links to blog
   articles[3].addEventListener('click', function () {

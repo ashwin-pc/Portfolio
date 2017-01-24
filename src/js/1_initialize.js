@@ -13,7 +13,8 @@ var dbRefWebsites = firebase.database().ref().child('websites');
 var dbRefGraphics = firebase.database().ref().child('graphics');
 
 // Ajax
-function $ajax(url, callback) {
+function $ajax(ob, callback) {
+  var url = (ob !== null && typeof ob === 'object') ? ob.url : ob;
   var oReq = new XMLHttpRequest();
   oReq.open('GET', url, true);
   oReq.responseType = 'json';
@@ -21,6 +22,12 @@ function $ajax(url, callback) {
 
   // Success response
   oReq.onload = function (e) {
-    callback(null, e.target.response);
+    var ref = (ob !== null && typeof ob === 'object') ? ob.ref : null;
+    try {
+      var response = JSON.parse(e.target.response);
+    } catch (error) {
+      var response = e.target.response;
+    }
+    callback(null, response, ref);
   };
 }

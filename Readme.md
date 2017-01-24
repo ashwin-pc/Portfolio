@@ -6,6 +6,8 @@ The story about a nerd who had a flair for art. went crazy at the opportunity to
 
 ## How to Use
 
+First Install all dependencies using `npm install` and globally  install gulp using `npm install -g gulp-cli` if not already installed
+
 ### 1. Web Section
 
 Googles `Firebase` was used for storing website metadata and preview images. Preview images were generated using screen capture  `Shift + Cmd + 4`  and photoshops `Scripts > Image Processor` function.
