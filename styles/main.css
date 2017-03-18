@@ -171,13 +171,13 @@ html, body {
         padding: 12px; }
         #blog .article-container .article > .article-text .article-title {
           display: inline-block;
-          width: 58%; }
+          width: 57%; }
         #blog .article-container .article > .article-text .article-date {
           top: -3px;
           text-align: right;
           color: #a96705;
           display: inline-block;
-          width: 40%;
+          width: 41%;
           position: relative; }
         #blog .article-container .article > .article-text .article-summary {
           /*padding-top: 10px;*/
@@ -384,7 +384,8 @@ html, body {
   z-index: 10;
   bottom: 20px;
   left: 50%;
-  margin-left: -32px; }
+  margin-left: -25px;
+  width: 50px; }
 
 @-moz-keyframes bounce {
   0%, 100% {

@@ -52,7 +52,7 @@ The download URL of these files must be saved in firebase `Database`
 ## To Do
 
 - [x] Remove hamburger
-- [ ] Improve Blog Images
+- [x] Improve Blog Images
 - [ ] Loader for loading sections
 - [ ] My Section change
 - [ ] Graphics horizontal scroll

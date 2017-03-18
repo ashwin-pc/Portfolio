@@ -104,7 +104,7 @@ function _makeArticles(wpArticles) {
         ref: article
       }; 
       $ajax(ob, function (err, image, article) {
-        article.children[0].style.backgroundImage = "url(" + image.media_details.sizes.thumbnail.source_url + ")";
+        article.children[0].style.backgroundImage = "url(" + image.media_details.sizes.medium.source_url + ")";
         article.children[0].style.backgroundSize = "cover";
       });
     }
