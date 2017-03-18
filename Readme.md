@@ -51,6 +51,8 @@ The download URL of these files must be saved in firebase `Database`
 
 ## To Do
 
-[ ] loader for loading sections
+[ ] Remove hamburger
+[ ] Loader for loading sections
 [ ] My Section change
 [ ] Graphics horizontal scroll
+[ ] Firebase using AJAX call only (refer to designedbyashw.in)
