@@ -51,7 +51,7 @@ The download URL of these files must be saved in firebase `Database`
 
 ## To Do
 
-- [ ] Remove hamburger
+- [x] Remove hamburger
 - [ ] Loader for loading sections
 - [ ] My Section change
 - [ ] Graphics horizontal scroll

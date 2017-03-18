@@ -413,17 +413,3 @@ html, body {
     -ms-transform: translateY(-5px);
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px); } }
-
-/* Hamburger */
-.hamburger {
-  width: 20px;
-  /* height: 30px; */
-  float: right;
-  margin-right: 20px;
-  margin-top: 14px; }
-  .hamburger > .bar {
-    background-color: #000;
-    margin: 2px 0 0 0;
-    height: 4px;
-    width: 100%;
-    display: block; }
