@@ -323,7 +323,6 @@ function previousSection() {
 
   // Scroll location
   var prevIndex = (currentSectionIndex == 0) ? 0 : currentSectionIndex-1;
-  // console.log(prevIndex, i);
   zenscroll.to(sections[prevIndex]);
 }
 
