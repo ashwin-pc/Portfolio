@@ -170,22 +170,14 @@ function _makeTiles(objectArray) {
     // Front of Tile
     cellFront.classList.add('live-tile');
     cellFront.dataset.link = object.fullLink || object.link;
-    cellFront.dataset.index = index;
     cellFront.style.backgroundImage = "url(" + object.link + ")";
 
     // Append
     cell.appendChild(cellFront);
 
     // Store the details in object Array
-    if(excess) {
-      tileImgArr = objectArray;
-      tileImgArr.forEach(function(tile, index) {
-        if(index < 12) {
-          tile.visible = true;
-        } else {
-          tile.visible = false;
-        }
-      }, this);
+    if(excess && index > 11) {
+      cellFront.dataset.visible = false;
     }
 
 
@@ -260,19 +252,16 @@ function updateTile() {
     // Update tile image if there is more than 12 tiles
     if (excess) {
       setTimeout(function() {
-        console.log("before array");
-        for (index = 0; index < tileImgArr.length; index++) {
-          var pIndex = parseInt(liveTiles[rand].dataset.index);
-          if(!tileImgArr[index].visible && index!=rand && index!=pIndex) {
-            liveTiles[rand].style.backgroundImage = "url(" + tileImgArr[index].link + ")";
-            liveTiles[rand].dataset.link = tileImgArr[index].fullLink || tileImgArr[index].link;
-            liveTiles[rand].dataset.index = index;
-            tileImgArr[index].visible = true;
-            tileImgArr[pIndex].visible = false;
-            console.log(index, rand, pIndex);
-            return;
-          }
-        };
+        var index = getRandomInt(12,liveTiles.length-1);
+        if (liveTiles[index].dataset.visible == "false") {
+          var temp = {};
+          temp.link = liveTiles[rand].dataset.link;
+          temp.backgroundImage = liveTiles[rand].style.backgroundImage;
+          liveTiles[rand].dataset.link = liveTiles[index].dataset.link;
+          liveTiles[rand].style.backgroundImage = liveTiles[index].style.backgroundImage;
+          liveTiles[index].dataset.link = temp.link;
+          liveTiles[index].style.backgroundImage = temp.backgroundImage;
+        }
       }, animationTime/2);
     }
   }
