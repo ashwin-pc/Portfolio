@@ -33,6 +33,11 @@ function $ajax(ob, callback) {
 }
 
 // Add common prototype functions
-Number.prototype.map = function (in_min, in_max, out_min, out_max) {
-  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+Number.prototype.map = function (in_min, in_max, out_min, out_max, force) {
+  var val = this;
+  if(force) {
+    if(val<in_min) {val = in_min}
+    else if (val > in_max) { val = in_max}
+  }
+  return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

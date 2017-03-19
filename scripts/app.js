@@ -33,8 +33,13 @@ function $ajax(ob, callback) {
 }
 
 // Add common prototype functions
-Number.prototype.map = function (in_min, in_max, out_min, out_max) {
-  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+Number.prototype.map = function (in_min, in_max, out_min, out_max, force) {
+  var val = this;
+  if(force) {
+    if(val<in_min) {val = in_min}
+    else if (val > in_max) { val = in_max}
+  }
+  return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 /*
  * Web Design Section Controller
@@ -245,27 +250,10 @@ function updateTile() {
  * 
  */
 
-var video = document.getElementById('cover-video');
 var arrowDown = document.getElementById('arrowDown');
 var mailMe = document.getElementById('mailMe');
-
-var played = false;
-
-function fadeout() {
-  video.classList.add("stopfade");
-}
-
-video.addEventListener('ended',fadeout, false);
-
-// get the video
-var video = document.querySelector('video');
-// use the whole window and a *named function*
-window.addEventListener('touchstart', function videoStart() {
-  video.play();
-  console.log('first touch');
-  // remove from the window and call the function we are removing
-  this.removeEventListener('touchstart', videoStart);
-});
+var myTitleEle = document.getElementById('my-title');
+var myTextEle = document.getElementById('my-text');
 
 // Transform functiom
 function transform(ele, type, val) {
@@ -276,39 +264,35 @@ function transform(ele, type, val) {
 }
 
 function _mySectionScrollHandler() {
-	var rect = video.getBoundingClientRect();
-	var h = video.offsetHeight;
 
 	// Play video if 80% of section is visible
-  var sectionVisiblePercent = getSectionVisiblePercent(4)
-  console.log(sectionVisiblePercent);
+  var sectionVisiblePercent = getSectionVisiblePercent(4);
+
+	// Swap between arrow and mail icon after 80% of the page is visible
 	if (sectionVisiblePercent > 80) {
-		if (!played) {
-			console.log("playing");
-			video.play();
-			played = true;
-		}
-	} else {
-		if (!played) {
-			video.pause();
-		}
-	}
-
-	// Swap between arrow and mail icon 200px from bottom of page
-	if (rect.top < 200) {
 		if (arrowDown.classList.contains('animate')) {
-			arrowDown.classList.remove('animate')
+			arrowDown.classList.remove('animate');
 		}
 
-		var bottom = (rect.top < 0) ? 0 : rect.top;
-		transform(arrowDown, 'scale', (bottom / 200));
-		transform(mailMe, 'scale', (1 - bottom / 200));
+		var scaleArrow = sectionVisiblePercent.map(80,90,1,0,true);
+		var scaleMail = sectionVisiblePercent.map(90,100,0,1,true);
+		transform(arrowDown, 'scale', scaleArrow);
+		transform(mailMe, 'scale', scaleMail);
 	} else {
 		if (!arrowDown.classList.contains('animate')) {
 			arrowDown.classList.add('animate');
 			transform(mailMe, 'scale', 0);
 		}
 	}
+
+  // Show title and text based on scroll
+  if(sectionVisiblePercent > 70) {
+    myTitleEle.classList.add('animate');
+    myTextEle.classList.add('animate');
+  } else {
+    myTitleEle.classList.remove('animate');
+    myTextEle.classList.remove('animate');
+  }
 }
 /**
  * Scrolling related functions are handled here
