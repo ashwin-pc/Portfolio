@@ -58,6 +58,9 @@ function _makeTiles(objectArray) {
       imageEle.classList.remove("animate");
       imageViewerEle.style.display = 'none';
     });
+    imageEle.addEventListener("click",function (e) {
+      e.stopPropagation();
+    })
 
     // Append cells to document fragment
     docFrag.appendChild(cell);
