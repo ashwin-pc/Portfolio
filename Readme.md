@@ -56,5 +56,6 @@ The download URL of these files must be saved in firebase `Database`
 - [x] Add Favicon
 - [ ] Loader for loading sections
 - [ ] My Section change (not broken anymore)
-- [ ] Graphics horizontal scroll
+- [x] Graphics randomize
+- [ ] Graphics Image Viewer animation and controls
 - [ ] Firebase using AJAX call only (refer to designedbyashw.in)

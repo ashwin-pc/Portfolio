@@ -6,13 +6,15 @@
  */
 var liveTiles;
 var tileImgArr;
-var previousRand = 0;
+var excess = 0;
 
 function _makeTiles(objectArray) {
   var imageViewer = document.getElementById('imageViewer');
   var docFrag = document.createDocumentFragment();
+  
+  excess = (objectArray.length > 12) ? objectArray.length - 12 : 0;
 
-  objectArray.forEach(function (object) {
+  objectArray.forEach(function (object,index) {
     var cell = document.createElement('div');
     var cellFront = document.createElement('div');
 
@@ -27,7 +29,10 @@ function _makeTiles(objectArray) {
     cell.appendChild(cellFront);
 
     // Store the details in object Array
-    tileImgArr = objectArray;
+    if(excess && index > 11) {
+      cellFront.dataset.visible = false;
+    }
+
 
     // Add event listners
     cell.addEventListener('click', function (e) {
@@ -51,7 +56,7 @@ dbRefGraphics.once('value').then(function (snapshot) {
   graphicsContainer.appendChild(tiles);
 
   // save live tile references
-  liveTiles= graphicsContainer.getElementsByClassName('live-tile');
+  liveTiles = graphicsContainer.getElementsByClassName('live-tile');
   liveLoop();
 });
 
@@ -88,11 +93,30 @@ function updateTile() {
     var min = 0; 
     var max = liveTiles.length - 1;
     var rand = getRandomInt(min,max);
+    var animationTime = 500;
+    var nextIndex;
 
+    if(liveTiles[rand].classList.contains('start')) {return;}
     liveTiles[rand].classList.add('start');
     setTimeout(function() {
       liveTiles[rand].classList.remove('start');
     }, 5000);
+
+    // Update tile image if there is more than 12 tiles
+    if (excess) {
+      setTimeout(function() {
+        var index = getRandomInt(12,liveTiles.length-1);
+        if (liveTiles[index].dataset.visible == "false") {
+          var temp = {};
+          temp.link = liveTiles[rand].dataset.link;
+          temp.backgroundImage = liveTiles[rand].style.backgroundImage;
+          liveTiles[rand].dataset.link = liveTiles[index].dataset.link;
+          liveTiles[rand].style.backgroundImage = liveTiles[index].style.backgroundImage;
+          liveTiles[index].dataset.link = temp.link;
+          liveTiles[index].style.backgroundImage = temp.backgroundImage;
+        }
+      }, animationTime/2);
+    }
   }
   
 }
