@@ -53,6 +53,7 @@ The download URL of these files must be saved in firebase `Database`
 
 - [x] Remove hamburger
 - [x] Improve Blog Images
+- [ ] Add Favicon
 - [ ] Loader for loading sections
 - [ ] My Section change
 - [ ] Graphics horizontal scroll
