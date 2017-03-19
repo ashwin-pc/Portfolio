@@ -300,7 +300,6 @@ html, body {
 
 /*----------------------------- My Section -----------------------------*/
 #my-section {
-  background-color: #141415;
   z-index: 5;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -311,7 +310,15 @@ html, body {
   flex-direction: column;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center; }
+  justify-content: center;
+  background-color: #141415;
+  background: -moz-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #525252), color-stop(100%, #131313));
+  background: -webkit-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: -o-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: radial-gradient(ellipse at center, #525252 0%, #131313 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#525252', endColorstr='#131313', GradientType=1 ); }
   #my-section > #my-dp {
     margin-left: auto;
     margin-right: auto;
@@ -321,7 +328,7 @@ html, body {
     height: 200px;
     border-radius: 50%;
     border: 7px solid white;
-    box-shadow: 1px 1px 20px 4px #000000; }
+    box-shadow: 2px 2px 7px 1px #000000; }
   #my-section > #my-title, #my-section > #my-text {
     opacity: 0;
     transform: translateY(30px);
