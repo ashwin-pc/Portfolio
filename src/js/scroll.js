@@ -70,7 +70,7 @@ document.onkeydown = function (e) {
  * checkScroll - function to detect scrollLocation and trigger events
  */
 function checkScroll() {
-	var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
+	var scrollTop = (window.pageYOffset) + 1;
 	currentSection = getCurrentSectionIndex();
 
 	switch (currentSection) {
