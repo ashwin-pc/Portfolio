@@ -249,13 +249,36 @@ html, body {
     height: 100%;
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.66); }
-    #graphics #imageViewer > img {
+    #graphics #imageViewer #image-close {
+      position: fixed;
+      bottom: 0px;
+      padding: 20px 80px;
+      width: 100%;
+      text-transform: uppercase;
+      font-weight: 900;
+      background-color: #222;
+      color: white;
+      transform: translateY(100%); }
+    #graphics #imageViewer #image {
       position: relative;
       top: 50%;
-      transform: translateY(-50%);
-      border: 5px solid white;
-      max-width: 80%;
-      max-height: 80%; }
+      left: 50%;
+      transform: scale(0) translate(-50%, -50%);
+      border: 2px solid #222;
+      background-color: #222; }
+      #graphics #imageViewer #image img {
+        width: 100%;
+        height: 100%;
+        opacity: 0; }
+      #graphics #imageViewer #image.animate {
+        animation: reveal 2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; }
+        #graphics #imageViewer #image.animate img {
+          opacity: 1;
+          transition: opacity 0.2s ease-in 2s; }
+        #graphics #imageViewer #image.animate + #image-close {
+          cursor: pointer;
+          transform: translateY(0);
+          transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) 2.5s; }
 
 @media only screen and (max-width: 1370px) {
   #graphics > p {
@@ -297,6 +320,24 @@ html, body {
     transform: rotateY(270deg); }
   100% {
     transform: rotateY(360deg); } }
+
+@keyframes reveal {
+  0% {
+    transform: scaleX(0) scaleY(0.01) translate(-50%, -50%);
+    transform-origin: top;
+    background-color: #222; }
+  40% {
+    transform: scaleX(1) scaleY(0.01) translate(-50%, -50%);
+    transform-origin: top;
+    background-color: #222; }
+  50% {
+    transform: scaleX(1) scaleY(0.01) translate(-50%, -50%);
+    transform-origin: top;
+    background-color: #222; }
+  100% {
+    transform: scaleX(1) scaleY(1) translate(-50%, -50%);
+    transform-origin: top;
+    background-color: #222; } }
 
 /*----------------------------- My Section -----------------------------*/
 #my-section {
@@ -409,3 +450,25 @@ html, body {
     -ms-transform: translateY(-5px);
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px); } }
+
+.loader {
+  position: fixed;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  margin-left: -12px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 0.25rem solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  animation: spin 1s infinite linear; }
+  .loader.show {
+    opacity: 1;
+    transition: opacity 1s ease-in-out; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
