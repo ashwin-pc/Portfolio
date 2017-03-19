@@ -8,10 +8,24 @@ var liveTiles;
 var tileImgArr;
 var excess = 0;
 
+var imageViewerEle = document.getElementById('imageViewer');
+var imageEle = document.getElementById("image");
+var spinningLoaderEle = document.getElementById("spinning-loader");
+
+function _imageLoadHandler(e) {
+  var ratio = Math.max(e.target.naturalHeight/window.innerHeight,e.target.naturalWidth/window.innerWidth);
+
+  imageEle.style.height = (e.target.naturalHeight / ratio * 0.8) + 'px';
+  imageEle.style.width = (e.target.naturalWidth / ratio * 0.8) + 'px';
+  imageEle.style.scale = 0;
+  imageEle.classList.add("animate");
+  spinningLoaderEle.classList.remove("show");
+}
+
 function _makeTiles(objectArray) {
-  var imageViewer = document.getElementById('imageViewer');
   var docFrag = document.createDocumentFragment();
   
+  imageEle.children[0].addEventListener('load', _imageLoadHandler);
   excess = (objectArray.length > 12) ? objectArray.length - 12 : 0;
 
   objectArray.forEach(function (object,index) {
@@ -36,11 +50,13 @@ function _makeTiles(objectArray) {
 
     // Add event listners
     cell.addEventListener('click', function (e) {
-      imageViewer.style.display = 'block';
-      imageViewer.children[0].src = e.target.dataset.link;
+      imageViewerEle.style.display = 'block';
+      imageEle.children[0].src = e.target.dataset.link;
+      spinningLoaderEle.classList.add("show");
     });
-    imageViewer.addEventListener('click', function (e) {
-      imageViewer.style.display = 'none';
+    imageViewerEle.addEventListener('click', function (e) {
+      imageEle.classList.remove("animate");
+      imageViewerEle.style.display = 'none';
     });
 
     // Append cells to document fragment
@@ -59,11 +75,6 @@ dbRefGraphics.once('value').then(function (snapshot) {
   liveTiles = graphicsContainer.getElementsByClassName('live-tile');
   liveLoop();
 });
-
-/*
- * Live Tile Functionality
- * 
- * */
 
 // Get random integer within a range inclusive of min and max values
 function getRandomInt(min, max) {
@@ -106,6 +117,8 @@ function updateTile() {
     if (excess) {
       setTimeout(function() {
         var index = getRandomInt(12,liveTiles.length-1);
+
+        // Swap hidden tiles with shown tiles
         if (liveTiles[index].dataset.visible == "false") {
           var temp = {};
           temp.link = liveTiles[rand].dataset.link;
