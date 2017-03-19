@@ -1,6 +1,5 @@
 /*----------------------------- My Section -----------------------------*/
 #my-section {
-  background-color: #000;
   z-index: 5;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -12,23 +11,14 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
           justify-content: center;
-
-  > video.fullscreen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -10;
-    transform: translate(-50%, -50%);
-    transition: 1s opacity;
-    background-color: white;
-  }
-  .stopfade {
-    opacity: .5;
-  }
+  background-color: #141415;
+  background: -moz-radial-gradient(center, ellipse cover, rgba(82,82,82,1) 0%, rgba(19,19,19,1) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(82,82,82,1)), color-stop(100%, rgba(19,19,19,1)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(82,82,82,1) 0%, rgba(19,19,19,1) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(82,82,82,1) 0%, rgba(19,19,19,1) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(82,82,82,1) 0%, rgba(19,19,19,1) 100%);
+  background: radial-gradient(ellipse at center, rgba(82,82,82,1) 0%, rgba(19,19,19,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#525252', endColorstr='#131313', GradientType=1 );
 
   > #my-dp {
     margin-left: auto;
@@ -38,17 +28,29 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 0px solid white;
-    box-shadow: 1px 1px 23px -6px black;
+    border: 7px solid white;
+    box-shadow: 2px 2px 7px 1px #000000;
   }
 
-  > h1, > p {
+  > #my-title, > #my-text {
+    opacity: 0;
+    transform: translateY(30px);
     text-align: center;
     color: white;
+
+    &.animate {
+      opacity: 1;
+      transform: translateY(0px);
+      transition: all 0.5s cubic-bezier(0.08, 0.82, 0.38, 1.53) 0.5s;
+    }
   }
 
-  > h1 {
+  > #my-title {
     margin-top: 40px;
     margin-bottom: 10px;
+  }
+
+  > #my-text.animate {
+    transition-delay: 0.9s;
   }
 }

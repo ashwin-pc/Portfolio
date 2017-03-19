@@ -34,12 +34,6 @@ html, body {
   .page-section > p {
     font-size: 13pt; } }
 
-.nav {
-  z-index: 10;
-  position: fixed;
-  width: 100%;
-  top: 0; }
-
 /* Common styles */
 .red {
   color: #C51838 !important; }
@@ -306,7 +300,6 @@ html, body {
 
 /*----------------------------- My Section -----------------------------*/
 #my-section {
-  background-color: #000;
   z-index: 5;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -317,21 +310,15 @@ html, body {
   flex-direction: column;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center; }
-  #my-section > video.fullscreen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -10;
-    transform: translate(-50%, -50%);
-    transition: 1s opacity;
-    background-color: white; }
-  #my-section .stopfade {
-    opacity: .5; }
+  justify-content: center;
+  background-color: #141415;
+  background: -moz-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #525252), color-stop(100%, #131313));
+  background: -webkit-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: -o-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #525252 0%, #131313 100%);
+  background: radial-gradient(ellipse at center, #525252 0%, #131313 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#525252', endColorstr='#131313', GradientType=1 ); }
   #my-section > #my-dp {
     margin-left: auto;
     margin-right: auto;
@@ -340,14 +327,22 @@ html, body {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 0px solid white;
-    box-shadow: 1px 1px 23px -6px black; }
-  #my-section > h1, #my-section > p {
+    border: 7px solid white;
+    box-shadow: 2px 2px 7px 1px #000000; }
+  #my-section > #my-title, #my-section > #my-text {
+    opacity: 0;
+    transform: translateY(30px);
     text-align: center;
     color: white; }
-  #my-section > h1 {
+    #my-section > #my-title.animate, #my-section > #my-text.animate {
+      opacity: 1;
+      transform: translateY(0px);
+      transition: all 0.5s cubic-bezier(0.08, 0.82, 0.38, 1.53) 0.5s; }
+  #my-section > #my-title {
     margin-top: 40px;
     margin-bottom: 10px; }
+  #my-section > #my-text.animate {
+    transition-delay: 0.9s; }
 
 /*----------------------------- UI styles -----------------------------*/
 /* Arrow Styles */
@@ -382,7 +377,7 @@ html, body {
   transform: scale(0);
   position: fixed;
   z-index: 10;
-  bottom: 20px;
+  bottom: 40px;
   left: 50%;
   margin-left: -25px;
   width: 50px; }

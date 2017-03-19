@@ -5,65 +5,10 @@
  * 
  */
 
-var video = document.getElementById('cover-video');
 var arrowDown = document.getElementById('arrowDown');
 var mailMe = document.getElementById('mailMe');
-
-var played = false;
-
-// Scroll spy
-function checkScroll() {
-  var rect  = video.getBoundingClientRect();
-  var h = video.offsetHeight, diff;
-
-  // Play video 100px from bottom of page
-  diff = rect.top - 100;
-  if (diff < 0) {
-    if (!played) {
-      console.log("playing");
-      video.play();
-      played = true;
-    }
-  } else {
-    if (!played) {
-      video.pause();
-    }
-  }
-
-  // Swap between arrow and mail icon 200px from bottom of page
-  if (rect.top < 200) {
-    if (arrowDown.classList.contains('animate')) {
-      arrowDown.classList.remove('animate')
-    }
-
-    var bottom = (rect.top < 0) ? 0 : rect.top;
-    transform(arrowDown, 'scale', (bottom/200));
-    transform(mailMe, 'scale', (1 - bottom/200));
-  } else {
-    if (!arrowDown.classList.contains('animate')) {
-      arrowDown.classList.add('animate');
-      transform(mailMe, 'scale', 0);
-    }
-  }
-}
-
-function fadeout() {
-  video.classList.add("stopfade");
-}
-
-window.addEventListener('scroll', checkScroll, false);
-window.addEventListener('resize', checkScroll, false);
-video.addEventListener('ended',fadeout, false);
-
-// get the video
-var video = document.querySelector('video');
-// use the whole window and a *named function*
-window.addEventListener('touchstart', function videoStart() {
-  video.play();
-  console.log('first touch');
-  // remove from the window and call the function we are removing
-  this.removeEventListener('touchstart', videoStart);
-});
+var myTitleEle = document.getElementById('my-title');
+var myTextEle = document.getElementById('my-text');
 
 // Transform functiom
 function transform(ele, type, val) {
@@ -71,4 +16,36 @@ function transform(ele, type, val) {
   ele.style.MozTransform = type + "(" + val +")";
   ele.style.OTransform = type + "(" + val +")";
   ele.style.transform = type + "(" + val +")";
+}
+
+function _mySectionScrollHandler() {
+
+	// Play video if 80% of section is visible
+  var sectionVisiblePercent = getSectionVisiblePercent(4);
+
+	// Swap between arrow and mail icon after 80% of the page is visible
+	if (sectionVisiblePercent > 70) {
+		if (arrowDown.classList.contains('animate')) {
+			arrowDown.classList.remove('animate');
+		}
+
+		var scaleArrow = sectionVisiblePercent.map(70,80,1,0,true);
+		var scaleMail = sectionVisiblePercent.map(80,90,0,1,true);
+		transform(arrowDown, 'scale', scaleArrow);
+		transform(mailMe, 'scale', scaleMail);
+	} else {
+		if (!arrowDown.classList.contains('animate')) {
+			arrowDown.classList.add('animate');
+			transform(mailMe, 'scale', 0);
+		}
+	}
+
+  // Show title and text based on scroll
+  if(sectionVisiblePercent > 70) {
+    myTitleEle.classList.add('animate');
+    myTextEle.classList.add('animate');
+  } else {
+    myTitleEle.classList.remove('animate');
+    myTextEle.classList.remove('animate');
+  }
 }

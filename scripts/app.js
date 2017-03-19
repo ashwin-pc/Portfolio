@@ -31,6 +31,16 @@ function $ajax(ob, callback) {
     callback(null, response, ref);
   };
 }
+
+// Add common prototype functions
+Number.prototype.map = function (in_min, in_max, out_min, out_max, force) {
+  var val = this;
+  if(force) {
+    if(val<in_min) {val = in_min}
+    else if (val > in_max) { val = in_max}
+  }
+  return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 /*
  * Web Design Section Controller
  * purpose: To display various websites build by me on a realtime basis
@@ -240,65 +250,10 @@ function updateTile() {
  * 
  */
 
-var video = document.getElementById('cover-video');
 var arrowDown = document.getElementById('arrowDown');
 var mailMe = document.getElementById('mailMe');
-
-var played = false;
-
-// Scroll spy
-function checkScroll() {
-  var rect  = video.getBoundingClientRect();
-  var h = video.offsetHeight, diff;
-
-  // Play video 100px from bottom of page
-  diff = rect.top - 100;
-  if (diff < 0) {
-    if (!played) {
-      console.log("playing");
-      video.play();
-      played = true;
-    }
-  } else {
-    if (!played) {
-      video.pause();
-    }
-  }
-
-  // Swap between arrow and mail icon 200px from bottom of page
-  if (rect.top < 200) {
-    if (arrowDown.classList.contains('animate')) {
-      arrowDown.classList.remove('animate')
-    }
-
-    var bottom = (rect.top < 0) ? 0 : rect.top;
-    transform(arrowDown, 'scale', (bottom/200));
-    transform(mailMe, 'scale', (1 - bottom/200));
-  } else {
-    if (!arrowDown.classList.contains('animate')) {
-      arrowDown.classList.add('animate');
-      transform(mailMe, 'scale', 0);
-    }
-  }
-}
-
-function fadeout() {
-  video.classList.add("stopfade");
-}
-
-window.addEventListener('scroll', checkScroll, false);
-window.addEventListener('resize', checkScroll, false);
-video.addEventListener('ended',fadeout, false);
-
-// get the video
-var video = document.querySelector('video');
-// use the whole window and a *named function*
-window.addEventListener('touchstart', function videoStart() {
-  video.play();
-  console.log('first touch');
-  // remove from the window and call the function we are removing
-  this.removeEventListener('touchstart', videoStart);
-});
+var myTitleEle = document.getElementById('my-title');
+var myTextEle = document.getElementById('my-text');
 
 // Transform functiom
 function transform(ele, type, val) {
@@ -307,53 +262,129 @@ function transform(ele, type, val) {
   ele.style.OTransform = type + "(" + val +")";
   ele.style.transform = type + "(" + val +")";
 }
-// Arrow for next section function
+
+function _mySectionScrollHandler() {
+
+	// Play video if 80% of section is visible
+  var sectionVisiblePercent = getSectionVisiblePercent(4);
+
+	// Swap between arrow and mail icon after 80% of the page is visible
+	if (sectionVisiblePercent > 70) {
+		if (arrowDown.classList.contains('animate')) {
+			arrowDown.classList.remove('animate');
+		}
+
+		var scaleArrow = sectionVisiblePercent.map(70,80,1,0,true);
+		var scaleMail = sectionVisiblePercent.map(80,90,0,1,true);
+		transform(arrowDown, 'scale', scaleArrow);
+		transform(mailMe, 'scale', scaleMail);
+	} else {
+		if (!arrowDown.classList.contains('animate')) {
+			arrowDown.classList.add('animate');
+			transform(mailMe, 'scale', 0);
+		}
+	}
+
+  // Show title and text based on scroll
+  if(sectionVisiblePercent > 70) {
+    myTitleEle.classList.add('animate');
+    myTextEle.classList.add('animate');
+  } else {
+    myTitleEle.classList.remove('animate');
+    myTextEle.classList.remove('animate');
+  }
+}
+/**
+ * Scrolling related functions are handled here
+ */
+
+// Globally accessable scroll values and elements
 var sections = document.getElementsByClassName("page-section");
+var currentSection = 0;
+
+// returns index of the current section
+function getCurrentSectionIndex() {
+	var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
+	var currentSectionIndex = 0;
+
+	// Scroll Logic
+	for (var i = 0; i < sections.length; i++) {
+		if (sections[i].offsetTop < (scrollTop + 5)) {
+			currentSectionIndex = i;
+		}
+	}
+
+	return currentSectionIndex;
+}
+
+function getSectionScrollPercent(sectionIndex) {
+	var index = sectionIndex || currentSection;
+	var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
+	var top = sections[index].offsetTop;
+	var height = sections[index].offsetHeight;
+
+	var diff = (scrollTop-top < 0) ? 0 : scrollTop-top;
+	var percent = diff.map(0,height, 0, 100);
+	return percent;
+}
+
+function getSectionVisiblePercent(sectionIndex) {
+	var index = sectionIndex || currentSection;
+	var scrollBottom = (window.pageYOffset || document.documentElement.scrollTop) + (window.innerHeight || document.documentElement.clientHeight);
+	var top = sections[index].offsetTop;
+	var height = sections[index].offsetHeight;
+
+	var diff = (scrollBottom-top < 0) ? 0 : scrollBottom-top;
+	var percent = diff.map(0,height, 0, 100);
+	return percent;
+}
 
 function nextSection() {
-  var currentSectionIndex = getCurrentSectionIndex();
-
-  // Scroll location
-  var nextIndex = (currentSectionIndex == sections.length1-1) ? currentSectionIndex : currentSectionIndex + 1;
-  zenscroll.to(sections[nextIndex]);
+	var currentSectionIndex = getCurrentSectionIndex();
+	var nextIndex = (currentSectionIndex == sections.length1 - 1) ? currentSectionIndex : currentSectionIndex + 1;
+	zenscroll.to(sections[nextIndex]);
 }
 
 function previousSection() {
-  var currentSectionIndex = getCurrentSectionIndex();
-
-  // Scroll location
-  var prevIndex = (currentSectionIndex == 0) ? 0 : currentSectionIndex-1;
-  zenscroll.to(sections[prevIndex]);
-}
-
-function getCurrentSectionIndex() {
-  var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
-  var currentSectionIndex = 0;
-
-  // Scroll Logic
-  for (var i = 0; i < sections.length; i++) {
-    if (sections[i].offsetTop < (scrollTop + 5)) {
-      currentSectionIndex = i;
-    }
-  }
-
-  return currentSectionIndex;
+	var currentSectionIndex = getCurrentSectionIndex();
+	var prevIndex = (currentSectionIndex == 0) ? 0 : currentSectionIndex - 1;
+	zenscroll.to(sections[prevIndex]);
 }
 
 // nextSection Keyboard shortcut
 document.onkeydown = function (e) {
-    e = e || window.event;
+	e = e || window.event;
 
-    if (e.keyCode == '40') {
-      // Down Arrow
-      nextSection();
-    } else if (e.keyCode == '38') {
-      // Up Arrow
-      previousSection();
-    }
+	if (e.keyCode == '40') { 		// Down Arrow
+		nextSection();
+	} else if (e.keyCode == '38') { // Up Arrow
+		previousSection();
+	}
 }
 
-// zenscroll
+/**
+ * checkScroll - function to detect scrollLocation and trigger events
+ */
+function checkScroll() {
+	var scrollTop = (window.pageYOffset || document.documentElement.scrollTop) + 1;
+	currentSection = getCurrentSectionIndex();
+
+	switch (currentSection) {
+		case 3:
+			_mySectionScrollHandler();
+			break;
+		case 4:
+			_mySectionScrollHandler();
+			break;
+	}
+}
+
+
+// Add Scroll Event Listeners
+window.addEventListener('scroll', checkScroll, false);
+window.addEventListener('resize', checkScroll, false);
+
+// zenscroll setup
 var edgeOffset = 0; // px
 zenscroll.setup(null, edgeOffset);
 (function() {
