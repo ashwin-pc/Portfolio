@@ -153,13 +153,15 @@ $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3', function (
  */
 var liveTiles;
 var tileImgArr;
-var previousRand = 0;
+var excess = 0;
 
 function _makeTiles(objectArray) {
   var imageViewer = document.getElementById('imageViewer');
   var docFrag = document.createDocumentFragment();
+  
+  excess = (objectArray.length > 12) ? objectArray.length - 12 : 0;
 
-  objectArray.forEach(function (object) {
+  objectArray.forEach(function (object,index) {
     var cell = document.createElement('div');
     var cellFront = document.createElement('div');
 
@@ -168,13 +170,24 @@ function _makeTiles(objectArray) {
     // Front of Tile
     cellFront.classList.add('live-tile');
     cellFront.dataset.link = object.fullLink || object.link;
+    cellFront.dataset.index = index;
     cellFront.style.backgroundImage = "url(" + object.link + ")";
 
     // Append
     cell.appendChild(cellFront);
 
     // Store the details in object Array
-    tileImgArr = objectArray;
+    if(excess) {
+      tileImgArr = objectArray;
+      tileImgArr.forEach(function(tile, index) {
+        if(index < 12) {
+          tile.visible = true;
+        } else {
+          tile.visible = false;
+        }
+      }, this);
+    }
+
 
     // Add event listners
     cell.addEventListener('click', function (e) {
@@ -198,7 +211,7 @@ dbRefGraphics.once('value').then(function (snapshot) {
   graphicsContainer.appendChild(tiles);
 
   // save live tile references
-  liveTiles= graphicsContainer.getElementsByClassName('live-tile');
+  liveTiles = graphicsContainer.getElementsByClassName('live-tile');
   liveLoop();
 });
 
@@ -235,11 +248,33 @@ function updateTile() {
     var min = 0; 
     var max = liveTiles.length - 1;
     var rand = getRandomInt(min,max);
+    var animationTime = 500;
+    var nextIndex;
 
+    if(liveTiles[rand].classList.contains('start')) {return;}
     liveTiles[rand].classList.add('start');
     setTimeout(function() {
       liveTiles[rand].classList.remove('start');
     }, 5000);
+
+    // Update tile image if there is more than 12 tiles
+    if (excess) {
+      setTimeout(function() {
+        console.log("before array");
+        for (index = 0; index < tileImgArr.length; index++) {
+          var pIndex = parseInt(liveTiles[rand].dataset.index);
+          if(!tileImgArr[index].visible && index!=rand && index!=pIndex) {
+            liveTiles[rand].style.backgroundImage = "url(" + tileImgArr[index].link + ")";
+            liveTiles[rand].dataset.link = tileImgArr[index].fullLink || tileImgArr[index].link;
+            liveTiles[rand].dataset.index = index;
+            tileImgArr[index].visible = true;
+            tileImgArr[pIndex].visible = false;
+            console.log(index, rand, pIndex);
+            return;
+          }
+        };
+      }, animationTime/2);
+    }
   }
   
 }
