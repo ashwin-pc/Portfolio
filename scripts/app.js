@@ -323,6 +323,16 @@ function nextSection() {
   }
 }
 
+// nextSection Keyboard shortcut
+document.onkeydown = function (e) {
+    e = e || window.event;
+
+    if (e.keyCode == '40') {
+        // down Arrow
+        nextSection();
+    }
+}
+
 // zenscroll
 var edgeOffset = 0; // px
 zenscroll.setup(null, edgeOffset);
