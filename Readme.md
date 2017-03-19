@@ -55,6 +55,6 @@ The download URL of these files must be saved in firebase `Database`
 - [x] Improve Blog Images
 - [x] Add Favicon
 - [ ] Loader for loading sections
-- [ ] My Section change
+- [-] My Section change
 - [ ] Graphics horizontal scroll
 - [ ] Firebase using AJAX call only (refer to designedbyashw.in)

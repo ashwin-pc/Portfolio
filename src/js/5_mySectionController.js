@@ -24,13 +24,13 @@ function _mySectionScrollHandler() {
   var sectionVisiblePercent = getSectionVisiblePercent(4);
 
 	// Swap between arrow and mail icon after 80% of the page is visible
-	if (sectionVisiblePercent > 80) {
+	if (sectionVisiblePercent > 70) {
 		if (arrowDown.classList.contains('animate')) {
 			arrowDown.classList.remove('animate');
 		}
 
-		var scaleArrow = sectionVisiblePercent.map(80,90,1,0,true);
-		var scaleMail = sectionVisiblePercent.map(90,100,0,1,true);
+		var scaleArrow = sectionVisiblePercent.map(70,80,1,0,true);
+		var scaleMail = sectionVisiblePercent.map(80,90,0,1,true);
 		transform(arrowDown, 'scale', scaleArrow);
 		transform(mailMe, 'scale', scaleMail);
 	} else {
