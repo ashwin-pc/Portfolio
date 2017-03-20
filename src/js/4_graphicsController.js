@@ -69,9 +69,9 @@ function _makeTiles(objectArray) {
 }
 
 // Initialize Cells
-dbRefGraphics.once('value').then(function (snapshot) {
+$ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
   var graphicsContainer = document.getElementById('graphicsContainer');
-  var tiles = _makeTiles(snapshot.val());
+  var tiles = _makeTiles(snapshot);
   graphicsContainer.appendChild(tiles);
 
   // save live tile references

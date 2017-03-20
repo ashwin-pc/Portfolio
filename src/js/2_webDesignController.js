@@ -28,8 +28,12 @@ var flkty = new Flickity( '#webDesignCarousel', {
 });
 
 // Initialize Cells
-dbRefWebsites.once('value').then(function (snapshot) {
-  var cellArray = _makeCells(snapshot.val());
+$ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
+  if (err) {
+    console.log("Something wrong happened!"); //Improve this
+    return;
+  }
+  var cellArray = _makeCells(snapshot);
   flkty.append(cellArray);
 });
 

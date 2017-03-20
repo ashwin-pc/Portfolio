@@ -1,16 +1,5 @@
 // Initialize Firebase
-var config = {
-  apiKey: "AIzaSyDFUrgN8V-HKvI7W_omYzph_HUWYT_3qc0",
-  authDomain: "portfolio-50069.firebaseapp.com",
-  databaseURL: "https://portfolio-50069.firebaseio.com",
-  storageBucket: "portfolio-50069.appspot.com",
-  messagingSenderId: "620857279220"
-};
-firebase.initializeApp(config);
-
-// Initialize references
-var dbRefWebsites = firebase.database().ref().child('websites');
-var dbRefGraphics = firebase.database().ref().child('graphics');
+var firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
 
 // Ajax
 function $ajax(ob, callback) {
@@ -71,8 +60,12 @@ var flkty = new Flickity( '#webDesignCarousel', {
 });
 
 // Initialize Cells
-dbRefWebsites.once('value').then(function (snapshot) {
-  var cellArray = _makeCells(snapshot.val());
+$ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
+  if (err) {
+    console.log("Something wrong happened!"); //Improve this
+    return;
+  }
+  var cellArray = _makeCells(snapshot);
   flkty.append(cellArray);
 });
 
@@ -216,9 +209,9 @@ function _makeTiles(objectArray) {
 }
 
 // Initialize Cells
-dbRefGraphics.once('value').then(function (snapshot) {
+$ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
   var graphicsContainer = document.getElementById('graphicsContainer');
-  var tiles = _makeTiles(snapshot.val());
+  var tiles = _makeTiles(snapshot);
   graphicsContainer.appendChild(tiles);
 
   // save live tile references
