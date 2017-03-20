@@ -57,5 +57,7 @@ The download URL of these files must be saved in firebase `Database`
 - [ ] Loader for loading sections
 - [ ] My Section change (not broken anymore)
 - [x] Graphics randomize
-- [ ] Graphics Image Viewer animation and controls
-- [ ] Firebase using AJAX call only (refer to designedbyashw.in)
+- [x] Graphics Image Viewer animation and controls
+- [x] Firebase using AJAX call only (refer to designedbyashw.in)
+- [ ] Improve or change snow section
+- [ ] Add slight animation for blog
