@@ -58,4 +58,22 @@ $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3', function (
   _makeArticles(response);
 });
 
+function _blogScrollHandler() {
+  // Get Visibility Percent of the Section
+  var sectionVisiblePercent = getSectionVisiblePercent(2);
+  var articles = document.getElementsByClassName("article");
 
+  if (sectionVisiblePercent > 90) {
+    [].forEach.call(articles, function (article, i) {
+      setTimeout(function() {
+        article.classList.add("animate");
+      }, 100 * i);
+    });
+  } else {
+    [].forEach.call(articles, function (article, i) {
+      setTimeout(function() {
+        article.classList.remove("animate");
+      }, 100 * i);
+    });
+  }
+}

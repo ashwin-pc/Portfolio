@@ -74,6 +74,9 @@ function checkScroll() {
 	currentSection = getCurrentSectionIndex();
 
 	switch (currentSection) {
+		case 1:
+			_blogScrollHandler();
+			break;
 		case 3:
 			_mySectionScrollHandler();
 			break;

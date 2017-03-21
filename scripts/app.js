@@ -136,7 +136,25 @@ $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3', function (
   _makeArticles(response);
 });
 
+function _blogScrollHandler() {
+  // Get Visibility Percent of the Section
+  var sectionVisiblePercent = getSectionVisiblePercent(2);
+  var articles = document.getElementsByClassName("article");
 
+  if (sectionVisiblePercent > 90) {
+    [].forEach.call(articles, function (article, i) {
+      setTimeout(function() {
+        article.classList.add("animate");
+      }, 100 * i);
+    });
+  } else {
+    [].forEach.call(articles, function (article, i) {
+      setTimeout(function() {
+        article.classList.remove("animate");
+      }, 100 * i);
+    });
+  }
+}
 
 /*
  * Graphics Controller
@@ -298,7 +316,7 @@ function transform(ele, type, val) {
 
 function _mySectionScrollHandler() {
 
-	// Play video if 80% of section is visible
+	// Get Visibility Percent of the Section
   var sectionVisiblePercent = getSectionVisiblePercent(4);
 
 	// Swap between arrow and mail icon after 80% of the page is visible
@@ -403,6 +421,9 @@ function checkScroll() {
 	currentSection = getCurrentSectionIndex();
 
 	switch (currentSection) {
+		case 1:
+			_blogScrollHandler();
+			break;
 		case 3:
 			_mySectionScrollHandler();
 			break;
