@@ -20,7 +20,7 @@ function transform(ele, type, val) {
 
 function _mySectionScrollHandler() {
 
-	// Play video if 80% of section is visible
+	// Get Visibility Percent of the Section
   var sectionVisiblePercent = getSectionVisiblePercent(4);
 
 	// Swap between arrow and mail icon after 80% of the page is visible
