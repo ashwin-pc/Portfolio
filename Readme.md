@@ -60,5 +60,5 @@ The download URL of these files must be saved in firebase `Database`
 - [x] Graphics Image Viewer animation and controls
 - [x] Firebase using AJAX call only (refer to designedbyashw.in)
 - [ ] Improve or change snow section
-- [ ] Add slight animation for blog
-- [ ] Add error message toast
+- [x] Add slight animation for blog
+- [x] Add error message toast
