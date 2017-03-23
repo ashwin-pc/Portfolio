@@ -15,13 +15,11 @@ function errorToast(msg, timeout) {
 
     // Slide in toast
     setTimeout(function() {
-        console.log("remove show");
         toastEle.classList.add("show");
     }, 500);
 
     // Slide out toast
     setTimeout(function() {
-        console.log("remove show");
         toastEle.classList.remove("show");
     }, t+500);
 
