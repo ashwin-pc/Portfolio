@@ -23,7 +23,7 @@ function _makeArticles(wpArticles) {
     var date = new Date(wpArticles[index].date);
 
     // Article image
-    if (document.documentElement.clientWidth > 480 && wpArticles[index].featured_media !== 0) {
+    if (!_mobile && wpArticles[index].featured_media !== 0) {
       var ob = {
         url: wpArticles[index]._links['wp:featuredmedia'][0].href,
         ref: article

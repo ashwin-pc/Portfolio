@@ -24,8 +24,6 @@ function _makeCells(objectArray) {
     };
     bgImg.src = object.img;
 
-
-
     cellArray.push(cell);
   });
   return cellArray;
@@ -40,9 +38,9 @@ var flkty = new Flickity( '#webDesignCarousel', {
 });
 
 // Initialize Cells
-$ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
+$ajax(_firebaseBaseUrl+"websites.json", function (err,snapshot) {
   if (err) {
-    errorToast("Could not retrieve Web Page Designs, Try Again")
+    toast("Could not retrieve Web Page Designs, Try Again", true)
     return;
   }
   var cellArray = _makeCells(snapshot);

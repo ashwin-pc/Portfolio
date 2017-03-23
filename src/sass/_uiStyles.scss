@@ -112,10 +112,20 @@ $pulse-duration: 750ms;
 
 
 // Toasts
+#toast-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
 .toast {
-    position: fixed;
+    position: relative;
     left: 50%;
-    top: 10px;
+    width: 80%;
+    opacity: 0;
+    max-width: 400px;
+    margin-top: 10px;
+    text-align: center;
     background-color: rgba(31, 30, 30, 0.77);
     padding: 7px 30px;
     color: white;
@@ -126,5 +136,6 @@ $pulse-duration: 750ms;
 
     &.show {
       transform: translate(-50%, 0);
+      opacity: 1;
     }
 }

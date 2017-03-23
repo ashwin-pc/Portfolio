@@ -3,7 +3,8 @@
  */
 
 // Error Toast
-function errorToast(msg, timeout) {
+var toastContainerEle = document.getElementById("toast-container");
+function toast(msg, log, timeout) {
     var m = msg || "Something went wrong, Try Again";
     var t = timeout || 10000;
 
@@ -11,7 +12,7 @@ function errorToast(msg, timeout) {
     var toastEle = document.createElement("div");
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
-    document.body.appendChild(toastEle);
+    toastContainerEle.appendChild(toastEle);
 
     // Slide in toast
     setTimeout(function() {
@@ -25,11 +26,13 @@ function errorToast(msg, timeout) {
 
     // Remove from DOM
     setTimeout(function() {
-        document.body.removeChild(toastEle);
+        toastContainerEle.removeChild(toastEle);
     }, t+1000);
 
     // Log Error
-    console.log(m);
+    if (log) {
+      console.log(m);
+    }
 }
 
 // Add common prototype functions

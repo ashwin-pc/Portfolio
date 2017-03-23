@@ -480,10 +480,20 @@ html, body {
   100% {
     transform: rotate(360deg); } }
 
-.toast {
+#toast-container {
   position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100; }
+
+.toast {
+  position: relative;
   left: 50%;
-  top: 10px;
+  width: 80%;
+  opacity: 0;
+  max-width: 400px;
+  margin-top: 10px;
+  text-align: center;
   background-color: rgba(31, 30, 30, 0.77);
   padding: 7px 30px;
   color: white;
@@ -492,4 +502,5 @@ html, body {
   transform: translate(-50%, -200%);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   .toast.show {
-    transform: translate(-50%, 0); }
+    transform: translate(-50%, 0);
+    opacity: 1; }

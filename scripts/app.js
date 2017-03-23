@@ -3,7 +3,8 @@
  */
 
 // Error Toast
-function errorToast(msg, timeout) {
+var toastContainerEle = document.getElementById("toast-container");
+function toast(msg, log, timeout) {
     var m = msg || "Something went wrong, Try Again";
     var t = timeout || 10000;
 
@@ -11,7 +12,7 @@ function errorToast(msg, timeout) {
     var toastEle = document.createElement("div");
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
-    document.body.appendChild(toastEle);
+    toastContainerEle.appendChild(toastEle);
 
     // Slide in toast
     setTimeout(function() {
@@ -25,11 +26,13 @@ function errorToast(msg, timeout) {
 
     // Remove from DOM
     setTimeout(function() {
-        document.body.removeChild(toastEle);
+        toastContainerEle.removeChild(toastEle);
     }, t+1000);
 
     // Log Error
-    console.log(m);
+    if (log) {
+      console.log(m);
+    }
 }
 
 // Add common prototype functions
@@ -78,7 +81,16 @@ function $ajax(ob, callback) {
   }
 }
 // Initialize Firebase
-var firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
+var _firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
+var _mobile = false;
+
+if (document.documentElement.clientWidth < 480) {
+    _mobile = true;
+}
+
+if (!_mobile) {
+    toast("Use arrow keys to navigate throught sections", false, 3000);
+}
 /*
  * Web Design Section Controller
  * purpose: To display various websites build by me on a realtime basis
@@ -105,8 +117,6 @@ function _makeCells(objectArray) {
     };
     bgImg.src = object.img;
 
-
-
     cellArray.push(cell);
   });
   return cellArray;
@@ -121,9 +131,9 @@ var flkty = new Flickity( '#webDesignCarousel', {
 });
 
 // Initialize Cells
-$ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
+$ajax(_firebaseBaseUrl+"websites.json", function (err,snapshot) {
   if (err) {
-    errorToast("Could not retrieve Web Page Designs, Try Again")
+    toast("Could not retrieve Web Page Designs, Try Again", true)
     return;
   }
   var cellArray = _makeCells(snapshot);
@@ -177,7 +187,7 @@ function _makeArticles(wpArticles) {
     var date = new Date(wpArticles[index].date);
 
     // Article image
-    if (document.documentElement.clientWidth > 480 && wpArticles[index].featured_media !== 0) {
+    if (!_mobile && wpArticles[index].featured_media !== 0) {
       var ob = {
         url: wpArticles[index]._links['wp:featuredmedia'][0].href,
         ref: article
@@ -321,9 +331,9 @@ function _makeTiles(objectArray) {
 }
 
 // Initialize Cells
-$ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
+$ajax(_firebaseBaseUrl+"graphics.json", function (err, snapshot) {
   if (err) {
-    errorToast("Could not retrieve Graphic Designs, Try again.")
+    toast("Could not retrieve Graphic Designs, Try again.", true)
     return;
   }
   var graphicsContainer = document.getElementById('graphicsContainer');
