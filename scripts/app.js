@@ -1,24 +1,37 @@
-// Initialize Firebase
-var firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
+/**
+ * All Common funtions used accross sections go here
+ */
 
-// Ajax
-function $ajax(ob, callback) {
-  var url = (ob !== null && typeof ob === 'object') ? ob.url : ob;
-  var oReq = new XMLHttpRequest();
-  oReq.open('GET', url, true);
-  oReq.responseType = 'json';
-  oReq.send();
+// Error Toast
+function errorToast(msg, timeout) {
+    var m = msg || "Something went wrong, Try Again";
+    var t = timeout || 3000;
 
-  // Success response
-  oReq.onload = function (e) {
-    var ref = (ob !== null && typeof ob === 'object') ? ob.ref : null;
-    try {
-      var response = JSON.parse(e.target.response);
-    } catch (error) {
-      var response = e.target.response;
-    }
-    callback(null, response, ref);
-  };
+    // Create HTML
+    var toastEle = document.createElement("div");
+    toastEle.classList.add("toast");
+    toastEle.innerHTML = m;
+    document.body.appendChild(toastEle);
+
+    // Slide in toast
+    setTimeout(function() {
+        console.log("remove show");
+        toastEle.classList.add("show");
+    }, 500);
+
+    // Slide out toast
+    setTimeout(function() {
+        console.log("remove show");
+        toastEle.classList.remove("show");
+    }, t+500);
+
+    // Remove from DOM
+    setTimeout(function() {
+        document.body.removeChild(toastEle);
+    }, t+1000);
+
+    // Log Error
+    console.log(m);
 }
 
 // Add common prototype functions
@@ -30,6 +43,44 @@ Number.prototype.map = function (in_min, in_max, out_min, out_max, force) {
   }
   return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
+
+/**
+ * $ajax - Custom Ajax finctionality for the app
+ * @param {Object} ob configuration values for ajax call
+ * @param {Function} callback 
+ */
+function $ajax(ob, callback) {
+  var url = (ob !== null && typeof ob === 'object') ? ob.url : ob;
+  var oReq = new XMLHttpRequest();
+  oReq.open('GET', url, true);
+  oReq.responseType = 'json';
+  oReq.send();
+
+  // Success response
+  oReq.onload = function (e) {
+    if (oReq.status === 200) {
+      var ref = (ob !== null && typeof ob === 'object') ? ob.ref : null;
+      var response = e.target.response;
+      callback(null, response, ref);
+    } else {
+      // console.log(oReq.response);
+    }
+  };
+
+  oReq.onerror = function (e) {
+    callback("error", null);
+  }
+
+  oReq.onabort = function (e) {
+    console.log("abort",e);
+  }
+
+  oReq.ontimeout = function (e) {
+    callback("timeout",null);
+  }
+}
+// Initialize Firebase
+var firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
 /*
  * Web Design Section Controller
  * purpose: To display various websites build by me on a realtime basis
@@ -62,7 +113,7 @@ var flkty = new Flickity( '#webDesignCarousel', {
 // Initialize Cells
 $ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
   if (err) {
-    console.log("Something wrong happened!"); //Improve this
+    errorToast("Could not retrieve Web Page Designs, Try Again")
     return;
   }
   var cellArray = _makeCells(snapshot);
@@ -133,6 +184,10 @@ function _makeArticles(wpArticles) {
 
 // Ajax : Get latest 3 articles
 $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3', function (err, response) {
+  if (err) {
+    errorToast("Could not retrieve Posts, Try again.")
+    return;
+  }
   _makeArticles(response);
 });
 
@@ -228,6 +283,10 @@ function _makeTiles(objectArray) {
 
 // Initialize Cells
 $ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
+  if (err) {
+    errorToast("Could not retrieve Graphic Designs, Try again.")
+    return;
+  }
   var graphicsContainer = document.getElementById('graphicsContainer');
   var tiles = _makeTiles(snapshot);
   graphicsContainer.appendChild(tiles);
