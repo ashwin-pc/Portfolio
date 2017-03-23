@@ -31,13 +31,22 @@ function _makeTiles(objectArray) {
   objectArray.forEach(function (object,index) {
     var cell = document.createElement('div');
     var cellFront = document.createElement('div');
+    var bgImg = new Image();
 
     cell.className = 'image';
 
     // Front of Tile
     cellFront.classList.add('live-tile');
     cellFront.dataset.link = object.fullLink || object.link;
-    cellFront.style.backgroundImage = "url(" + object.link + ")";
+    // cellFront.style.backgroundImage = "url(" + object.link + ")";
+
+    // Loading images with loader
+    _addLoader(cellFront);
+    bgImg.onload = function(){
+      _removeLoader(cell);
+      cellFront.style.backgroundImage = 'url(' + bgImg.src + ')';
+    };
+    bgImg.src = object.link;
 
     // Append
     cell.appendChild(cellFront);

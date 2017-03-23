@@ -5,7 +5,7 @@
 // Error Toast
 function errorToast(msg, timeout) {
     var m = msg || "Something went wrong, Try Again";
-    var t = timeout || 3000;
+    var t = timeout || 10000;
 
     // Create HTML
     var toastEle = document.createElement("div");
@@ -91,10 +91,22 @@ function _makeCells(objectArray) {
 
   objectArray.forEach(function (object) {
     var cell = document.createElement('div');
-    cell.className = 'carousel-cell';
-    // cell.textContent = object.name; // TODO: Add name feild if required
+    var bgImg = new Image();
+    cell.classList.add('carousel-cell');
+    cell.textContent = object.name; // TODO: Add name feild if required
     cell.dataset.link = object.link;
-    cell.style.backgroundImage = "url(" + object.img + ")";
+    _addLoader(cell);
+
+    // Loading images with loader
+    bgImg.onload = function(){
+      _removeLoader(cell);
+      cell.textContent = "";
+      cell.style.backgroundImage = 'url(' + bgImg.src + ')';
+    };
+    bgImg.src = object.img;
+
+
+
     cellArray.push(cell);
   });
   return cellArray;
@@ -125,6 +137,21 @@ flkty.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
   }
   window.open(cellElement.dataset.link, '_blank');
 });
+
+/**
+ * _addLoader - function to add a loader to an element
+ * @param {Node} ele 
+ */
+function _addLoader(ele) {
+  var loader = document.createElement("div");
+  loader.classList.add("loader", "show");
+  ele.appendChild(loader);
+}
+
+function _removeLoader(ele) {
+  var loader = ele.getElementsByClassName("loader");
+  loader[0].parentNode.removeChild(loader[0]);
+}
 /*
  * Blog Controller
  * purpose: To display articles from my blog.
@@ -242,13 +269,22 @@ function _makeTiles(objectArray) {
   objectArray.forEach(function (object,index) {
     var cell = document.createElement('div');
     var cellFront = document.createElement('div');
+    var bgImg = new Image();
 
     cell.className = 'image';
 
     // Front of Tile
     cellFront.classList.add('live-tile');
     cellFront.dataset.link = object.fullLink || object.link;
-    cellFront.style.backgroundImage = "url(" + object.link + ")";
+    // cellFront.style.backgroundImage = "url(" + object.link + ")";
+
+    // Loading images with loader
+    _addLoader(cellFront);
+    bgImg.onload = function(){
+      _removeLoader(cell);
+      cellFront.style.backgroundImage = 'url(' + bgImg.src + ')';
+    };
+    bgImg.src = object.link;
 
     // Append
     cell.appendChild(cellFront);

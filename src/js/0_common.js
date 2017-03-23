@@ -5,7 +5,7 @@
 // Error Toast
 function errorToast(msg, timeout) {
     var m = msg || "Something went wrong, Try Again";
-    var t = timeout || 3000;
+    var t = timeout || 10000;
 
     // Create HTML
     var toastEle = document.createElement("div");
