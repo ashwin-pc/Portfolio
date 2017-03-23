@@ -54,7 +54,7 @@ The download URL of these files must be saved in firebase `Database`
 - [x] Remove hamburger
 - [x] Improve Blog Images
 - [x] Add Favicon
-- [ ] Loader for loading sections
+- [x] Loader for loading sections
 - [ ] My Section change (not broken anymore)
 - [x] Graphics randomize
 - [x] Graphics Image Viewer animation and controls
