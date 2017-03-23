@@ -262,6 +262,7 @@ function _imageLoadHandler(e) {
 
 function _makeTiles(objectArray) {
   var docFrag = document.createDocumentFragment();
+  var loadedImages = 0;
   
   imageEle.children[0].addEventListener('load', _imageLoadHandler);
   excess = (objectArray.length > 12) ? objectArray.length - 12 : 0;
@@ -282,7 +283,11 @@ function _makeTiles(objectArray) {
     _addLoader(cellFront);
     bgImg.onload = function(){
       _removeLoader(cell);
+      loadedImages++;
       cellFront.style.backgroundImage = 'url(' + bgImg.src + ')';
+      if (loadedImages == objectArray.length) {
+        liveLoop();
+      }
     };
     bgImg.src = object.link;
 
@@ -327,7 +332,6 @@ $ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
 
   // save live tile references
   liveTiles = graphicsContainer.getElementsByClassName('live-tile');
-  liveLoop();
 });
 
 // Get random integer within a range inclusive of min and max values
