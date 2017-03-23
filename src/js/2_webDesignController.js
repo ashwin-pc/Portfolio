@@ -30,7 +30,7 @@ var flkty = new Flickity( '#webDesignCarousel', {
 // Initialize Cells
 $ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
   if (err) {
-    console.log("Something wrong happened!"); //Improve this
+    errorToast("Could not retrieve Web Page Designs, Try Again")
     return;
   }
   var cellArray = _makeCells(snapshot);

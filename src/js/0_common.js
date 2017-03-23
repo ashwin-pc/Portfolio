@@ -8,9 +8,7 @@ function errorToast(msg, timeout) {
     var t = timeout || 3000;
 
     // Create HTML
-    // var frag = new DocumentFragment;
     var toastEle = document.createElement("div");
-
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
     document.body.appendChild(toastEle);
@@ -31,6 +29,9 @@ function errorToast(msg, timeout) {
     setTimeout(function() {
         document.body.removeChild(toastEle);
     }, t+1000);
+
+    // Log Error
+    console.log(m);
 }
 
 // Add common prototype functions

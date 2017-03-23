@@ -70,6 +70,10 @@ function _makeTiles(objectArray) {
 
 // Initialize Cells
 $ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
+  if (err) {
+    errorToast("Could not retrieve Graphic Designs, Try again.")
+    return;
+  }
   var graphicsContainer = document.getElementById('graphicsContainer');
   var tiles = _makeTiles(snapshot);
   graphicsContainer.appendChild(tiles);

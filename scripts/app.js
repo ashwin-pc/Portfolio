@@ -8,9 +8,7 @@ function errorToast(msg, timeout) {
     var t = timeout || 3000;
 
     // Create HTML
-    // var frag = new DocumentFragment;
     var toastEle = document.createElement("div");
-
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
     document.body.appendChild(toastEle);
@@ -31,6 +29,9 @@ function errorToast(msg, timeout) {
     setTimeout(function() {
         document.body.removeChild(toastEle);
     }, t+1000);
+
+    // Log Error
+    console.log(m);
 }
 
 // Add common prototype functions
@@ -112,7 +113,7 @@ var flkty = new Flickity( '#webDesignCarousel', {
 // Initialize Cells
 $ajax(firebaseBaseUrl+"websites.json", function (err,snapshot) {
   if (err) {
-    console.log("Something wrong happened!"); //Improve this
+    errorToast("Could not retrieve Web Page Designs, Try Again")
     return;
   }
   var cellArray = _makeCells(snapshot);
@@ -184,7 +185,7 @@ function _makeArticles(wpArticles) {
 // Ajax : Get latest 3 articles
 $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3', function (err, response) {
   if (err) {
-    console.log("Could not retrieve posts");
+    errorToast("Could not retrieve Posts, Try again.")
     return;
   }
   _makeArticles(response);
@@ -282,6 +283,10 @@ function _makeTiles(objectArray) {
 
 // Initialize Cells
 $ajax(firebaseBaseUrl+"graphics.json", function (err, snapshot) {
+  if (err) {
+    errorToast("Could not retrieve Graphic Designs, Try again.")
+    return;
+  }
   var graphicsContainer = document.getElementById('graphicsContainer');
   var tiles = _makeTiles(snapshot);
   graphicsContainer.appendChild(tiles);
