@@ -11,14 +11,26 @@ function $ajax(ob, callback) {
 
   // Success response
   oReq.onload = function (e) {
-    var ref = (ob !== null && typeof ob === 'object') ? ob.ref : null;
-    try {
-      var response = JSON.parse(e.target.response);
-    } catch (error) {
+    if (oReq.status === 200) {
+      var ref = (ob !== null && typeof ob === 'object') ? ob.ref : null;
       var response = e.target.response;
+      callback(null, response, ref);
+    } else {
+      // console.log(oReq.response);
     }
-    callback(null, response, ref);
   };
+
+  oReq.onerror = function (e) {
+    callback("error", null);
+  }
+
+  oReq.onabort = function (e) {
+    console.log("abort",e);
+  }
+
+  oReq.ontimeout = function (e) {
+    callback("timeout",null);
+  }
 }
 
 // Add common prototype functions
@@ -133,6 +145,10 @@ function _makeArticles(wpArticles) {
 
 // Ajax : Get latest 3 articles
 $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3', function (err, response) {
+  if (err) {
+    console.log("Could not retrieve posts");
+    return;
+  }
   _makeArticles(response);
 });
 
