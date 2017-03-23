@@ -13,6 +13,7 @@
     overflow-y: hidden;
     
     > .image {
+      position: relative;
       display: inline-block;
       width: 16.66%;
       height: 16.66vw;
@@ -25,10 +26,6 @@
         width: 100%;
         background-position: center;
         background-size: cover;
-      }
-
-      &:hover > div, &:focus > div  {
-        transform: scale(1.1);
       }
 
       // Livetile styles

@@ -10,10 +10,22 @@ function _makeCells(objectArray) {
 
   objectArray.forEach(function (object) {
     var cell = document.createElement('div');
-    cell.className = 'carousel-cell';
-    // cell.textContent = object.name; // TODO: Add name feild if required
+    var bgImg = new Image();
+    cell.classList.add('carousel-cell');
+    cell.textContent = object.name; // TODO: Add name feild if required
     cell.dataset.link = object.link;
-    cell.style.backgroundImage = "url(" + object.img + ")";
+    _addLoader(cell);
+
+    // Loading images with loader
+    bgImg.onload = function(){
+      _removeLoader(cell);
+      cell.textContent = "";
+      cell.style.backgroundImage = 'url(' + bgImg.src + ')';
+    };
+    bgImg.src = object.img;
+
+
+
     cellArray.push(cell);
   });
   return cellArray;
@@ -44,3 +56,18 @@ flkty.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
   }
   window.open(cellElement.dataset.link, '_blank');
 });
+
+/**
+ * _addLoader - function to add a loader to an element
+ * @param {Node} ele 
+ */
+function _addLoader(ele) {
+  var loader = document.createElement("div");
+  loader.classList.add("loader", "show");
+  ele.appendChild(loader);
+}
+
+function _removeLoader(ele) {
+  var loader = ele.getElementsByClassName("loader");
+  loader[0].parentNode.removeChild(loader[0]);
+}
