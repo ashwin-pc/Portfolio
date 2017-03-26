@@ -12,6 +12,8 @@
  * @param {String} [options.gravity] - Toast default gravity
  */
 function Toast(containerEle, options) {
+  // TODO : Gravity (add to comments the options and impliment)
+  // TODO : Remove styles from css if possible
   this.toastContainerEle = containerEle;
   this.message = options.message || "Something went wrong, Try Again";
   this.timeout = options.timeout || 10000;
