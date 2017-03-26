@@ -18,6 +18,12 @@ function Toast(containerEle, options) {
   this.logging = options.logging || false;
   this.gravity = options.gravity || 'top';
 }
+/**
+ * Show Toast
+ * @param {String} [msg] Toast Message
+ * @param {Object} [options] Individual Toast options to override the defaults
+ * @param {Function} [callback]
+ */
 Toast.prototype.show = function (msg, options, callback) {
 
     // Options
