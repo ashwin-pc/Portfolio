@@ -56,7 +56,7 @@ function _makeArticles(wpArticles) {
 // Ajax : Get latest 3 articles
 $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3&context=embed', function (err, response) {
   if (err) {
-    errorToast("Could not retrieve Posts, Try again.")
+    toast.show("Could not retrieve Posts, Try again.")
     return;
   }
   _makeArticles(response);

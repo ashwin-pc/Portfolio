@@ -1,18 +1,35 @@
 /**
- * All Common funtions used accross sections go here
+ * Common JS
  */
 
-// Error Toast
-var toastContainerEle = document.getElementById("toast-container");
-function toast(msg, log, timeout) {
-    var m = msg || "Something went wrong, Try Again";
-    var t = timeout || 10000;
+/**
+ * Toast - Toast Controller Class
+ * @param {Node} containerEle - DOM Container element
+ * @param {Object} options - Toast options
+ * @param {String} [options.message] - Toast default message
+ * @param {Number} [options.timeout] - Toast default timeout
+ * @param {Boolean} [options.logging] - Toast default logging option
+ * @param {String} [options.gravity] - Toast default gravity
+ */
+function Toast(containerEle, options) {
+  this.toastContainerEle = containerEle;
+  this.message = options.message || "Something went wrong, Try Again";
+  this.timeout = options.timeout || 10000;
+  this.logging = options.logging || false;
+  this.gravity = options.gravity || 'top';
+}
+Toast.prototype.show = function (msg, options, callback) {
+
+    // Options
+    var m     = msg || this.message;
+    var t     = options.timeout || this.timeout;
+    var log   = (typeof options.logging !== 'undefined') ? options.logging : this.logging;
 
     // Create HTML
     var toastEle = document.createElement("div");
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
-    toastContainerEle.appendChild(toastEle);
+    this.toastContainerEle.appendChild(toastEle);
 
     // Slide in toast
     setTimeout(function() {
@@ -26,12 +43,16 @@ function toast(msg, log, timeout) {
 
     // Remove from DOM
     setTimeout(function() {
-        toastContainerEle.removeChild(toastEle);
+        this.toastContainerEle.removeChild(toastEle);
     }, t+1000);
 
     // Log Error
     if (log) {
       console.log(m);
+    }
+
+    if (callback) {
+      return callback(null, m);
     }
 }
 
