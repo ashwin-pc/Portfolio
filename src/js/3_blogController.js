@@ -67,17 +67,17 @@ function _blogScrollHandler() {
   var sectionVisiblePercent = getSectionVisiblePercent(2);
   var articles = document.getElementsByClassName("article");
 
-  if (sectionVisiblePercent > 90) {
+  if (sectionVisiblePercent > 70) {
     [].forEach.call(articles, function (article, i) {
       setTimeout(function() {
         article.classList.add("animate");
-      }, 100 * i);
+      }, 100 * (i+2));
     });
   } else {
     [].forEach.call(articles, function (article, i) {
       setTimeout(function() {
         article.classList.remove("animate");
-      }, 100 * i);
+      }, 100 * (i+2));
     });
   }
 }
