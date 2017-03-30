@@ -11,9 +11,14 @@
  * @param {Boolean} [options.logging] - Toast default logging option
  * @param {String} [options.gravity] - Toast default gravity
  */
-function Toast(containerEle, options) {
+function ToastContainer(options) {
   // TODO : Gravity (add to comments the options and impliment)
   // TODO : Remove styles from css if possible
+  // Append Toast container to page
+  var containerEle = document.createElement("div");
+  containerEle.id = "toast-container";
+  document.body.appendChild(containerEle);
+
   this.toastContainerEle = containerEle;
   this.message = options.message || "Something went wrong, Try Again";
   this.timeout = options.timeout || 10000;
@@ -26,18 +31,19 @@ function Toast(containerEle, options) {
  * @param {Object} [options] Individual Toast options to override the defaults
  * @param {Function} [callback]
  */
-Toast.prototype.show = function (msg, options, callback) {
+ToastContainer.prototype.toast = function (msg, options, callback) {
 
     // Options
     var m     = msg || this.message;
-    var t     = options.timeout || this.timeout;
-    var log   = (typeof options.logging !== 'undefined') ? options.logging : this.logging;
+    var t     = (options && options.timeout) ? options.timeout : this.timeout;
+    var log   = (options && typeof options.logging !== 'undefined') ? options.logging : this.logging;
 
     // Create HTML
+    var containerEle = this.toastContainerEle;
     var toastEle = document.createElement("div");
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
-    this.toastContainerEle.appendChild(toastEle);
+    containerEle.appendChild(toastEle);
 
     // Slide in toast
     setTimeout(function() {
@@ -51,7 +57,7 @@ Toast.prototype.show = function (msg, options, callback) {
 
     // Remove from DOM
     setTimeout(function() {
-        this.toastContainerEle.removeChild(toastEle);
+        containerEle.removeChild(toastEle);
     }, t+1000);
 
     // Log Error
@@ -113,15 +119,14 @@ function $ajax(ob, callback) {
 var _firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
 var _mobile = false;
 
-var toastContainerEle = document.getElementById("toast-container");
-var toast = new Toast(toastContainerEle, {logging: true});
+var toastContainer = new ToastContainer({logging: true});
 
 if (document.documentElement.clientWidth < 480) {
     _mobile = true;
 }
 
 if (!_mobile) {
-    toast.show("Use arrow keys to navigate throught sections", {logging:false, timeout:3000});
+    toastContainer.toast("Use arrow keys to navigate throught sections", {logging:false, timeout:3000});
 }
 /*
  * Web Design Section Controller
@@ -165,7 +170,7 @@ var flkty = new Flickity( '#webDesignCarousel', {
 // Initialize Cells
 $ajax(_firebaseBaseUrl+"websites.json", function (err,snapshot) {
   if (err) {
-    toast.show("Could not retrieve Web Page Designs, Try Again")
+    toastContainer.toast("Could not retrieve Web Page Designs, Try Again")
     return;
   }
   var cellArray = _makeCells(snapshot);
@@ -252,7 +257,7 @@ function _makeArticles(wpArticles) {
 // Ajax : Get latest 3 articles
 $ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3&context=embed', function (err, response) {
   if (err) {
-    toast.show("Could not retrieve Posts, Try again.")
+    toastContainer.toast("Could not retrieve Blog posts, Try again.")
     return;
   }
   _makeArticles(response);
@@ -365,7 +370,7 @@ function _makeTiles(objectArray) {
 // Initialize Cells
 $ajax(_firebaseBaseUrl+"graphics.json", function (err, snapshot) {
   if (err) {
-    toast.show("Could not retrieve Graphic Designs, Try again.")
+    toastContainer.toast("Could not retrieve Graphic Designs, Try again.")
     return;
   }
   var graphicsContainer = document.getElementById('graphicsContainer');

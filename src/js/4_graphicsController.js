@@ -85,7 +85,7 @@ function _makeTiles(objectArray) {
 // Initialize Cells
 $ajax(_firebaseBaseUrl+"graphics.json", function (err, snapshot) {
   if (err) {
-    toast.show("Could not retrieve Graphic Designs, Try again.")
+    toastContainer.toast("Could not retrieve Graphic Designs, Try again.")
     return;
   }
   var graphicsContainer = document.getElementById('graphicsContainer');

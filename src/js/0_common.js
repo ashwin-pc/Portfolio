@@ -11,9 +11,14 @@
  * @param {Boolean} [options.logging] - Toast default logging option
  * @param {String} [options.gravity] - Toast default gravity
  */
-function Toast(containerEle, options) {
+function ToastContainer(options) {
   // TODO : Gravity (add to comments the options and impliment)
   // TODO : Remove styles from css if possible
+  // Append Toast container to page
+  var containerEle = document.createElement("div");
+  containerEle.id = "toast-container";
+  document.body.appendChild(containerEle);
+
   this.toastContainerEle = containerEle;
   this.message = options.message || "Something went wrong, Try Again";
   this.timeout = options.timeout || 10000;
@@ -26,18 +31,19 @@ function Toast(containerEle, options) {
  * @param {Object} [options] Individual Toast options to override the defaults
  * @param {Function} [callback]
  */
-Toast.prototype.show = function (msg, options, callback) {
+ToastContainer.prototype.toast = function (msg, options, callback) {
 
     // Options
     var m     = msg || this.message;
-    var t     = options.timeout || this.timeout;
-    var log   = (typeof options.logging !== 'undefined') ? options.logging : this.logging;
+    var t     = (options && options.timeout) ? options.timeout : this.timeout;
+    var log   = (options && typeof options.logging !== 'undefined') ? options.logging : this.logging;
 
     // Create HTML
+    var containerEle = this.toastContainerEle;
     var toastEle = document.createElement("div");
     toastEle.classList.add("toast");
     toastEle.innerHTML = m;
-    this.toastContainerEle.appendChild(toastEle);
+    containerEle.appendChild(toastEle);
 
     // Slide in toast
     setTimeout(function() {
@@ -51,7 +57,7 @@ Toast.prototype.show = function (msg, options, callback) {
 
     // Remove from DOM
     setTimeout(function() {
-        this.toastContainerEle.removeChild(toastEle);
+        containerEle.removeChild(toastEle);
     }, t+1000);
 
     // Log Error
