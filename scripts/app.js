@@ -134,8 +134,6 @@ if (document.documentElement.clientWidth < 480) {
 
 if (!_mobile) {
     toastContainer.toast("Use arrow keys to navigate throught sections", {logging:false, timeout:3000});
-    toastContainer.toast("Use arrow keys to navigate throught sections", {logging:false, timeout:4000});
-    toastContainer.toast("Use arrow keys to navigate throught sections", {logging:false, timeout:5000});
 }
 /*
  * Web Design Section Controller
