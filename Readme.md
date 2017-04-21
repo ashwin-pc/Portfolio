@@ -18,7 +18,7 @@ This sections data is automatically pulled from Wrodpress. the Latest 3 posts ar
 
 ### 3. Graphics Section
 
-`Firebase's` `Storage` is used to store images and thumbnails. a automator workflow is used to generate thumbnails.
+`Firebase's` `Storage` is used to store images and thumbnails. a photoshop script is used to generate thumbnails.
 
 The download URL of these files must be saved in firebase `Database`
 

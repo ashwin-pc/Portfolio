@@ -237,7 +237,10 @@ function _makeArticles(wpArticles) {
         ref: article
       }; 
       $ajax(ob, function (err, image, article) {
-        article.children[0].style.backgroundImage = "url(" + image.media_details.sizes.medium.source_url + ")";
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        var sizes = image.media_details.sizes;
+        var imageURL = (width > 1370) ? (sizes.medium_large || sizes.full).source_url : sizes.medium.source_url;
+        article.children[0].style.backgroundImage = "url(" + imageURL + ")";
         article.children[0].style.backgroundSize = "cover";
       });
     }
