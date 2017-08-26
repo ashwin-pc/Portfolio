@@ -14,11 +14,11 @@ function _makeCells(objectArray) {
     cell.classList.add('carousel-cell');
     cell.textContent = object.name; // TODO: Add name feild if required
     cell.dataset.link = object.link;
-    _addLoader(cell);
+    addLoader(cell);
 
     // Loading images with loader
     bgImg.onload = function(){
-      _removeLoader(cell);
+      removeLoader(cell);
       cell.textContent = "";
       cell.style.backgroundImage = 'url(' + bgImg.src + ')';
     };
@@ -56,16 +56,16 @@ flkty.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
 });
 
 /**
- * _addLoader - function to add a loader to an element
+ * addLoader - function to add a loader to an element
  * @param {Node} ele 
  */
-function _addLoader(ele) {
+function addLoader(ele) {
   var loader = document.createElement("div");
   loader.classList.add("loader", "show");
   ele.appendChild(loader);
 }
 
-function _removeLoader(ele) {
+function removeLoader(ele) {
   var loader = ele.getElementsByClassName("loader");
   loader[0].parentNode.removeChild(loader[0]);
 }

@@ -122,6 +122,22 @@ function $ajax(ob, callback) {
     callback("timeout",null);
   }
 }
+
+/**
+ * Generic Functions
+ */
+
+// Get random integer within a range inclusive of min and max values
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Test if the element has a class
+function hasClass(element, cls) {
+  return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+}
 // Initialize Page
 var _firebaseBaseUrl = "https://portfolio-50069.firebaseio.com/";
 var _mobile = false;
@@ -151,11 +167,11 @@ function _makeCells(objectArray) {
     cell.classList.add('carousel-cell');
     cell.textContent = object.name; // TODO: Add name feild if required
     cell.dataset.link = object.link;
-    _addLoader(cell);
+    addLoader(cell);
 
     // Loading images with loader
     bgImg.onload = function(){
-      _removeLoader(cell);
+      removeLoader(cell);
       cell.textContent = "";
       cell.style.backgroundImage = 'url(' + bgImg.src + ')';
     };
@@ -193,16 +209,16 @@ flkty.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
 });
 
 /**
- * _addLoader - function to add a loader to an element
+ * addLoader - function to add a loader to an element
  * @param {Node} ele 
  */
-function _addLoader(ele) {
+function addLoader(ele) {
   var loader = document.createElement("div");
   loader.classList.add("loader", "show");
   ele.appendChild(loader);
 }
 
-function _removeLoader(ele) {
+function removeLoader(ele) {
   var loader = ele.getElementsByClassName("loader");
   loader[0].parentNode.removeChild(loader[0]);
 }
@@ -307,6 +323,10 @@ var imageViewerEle = document.getElementById('imageViewer');
 var imageEle = document.getElementById("image");
 var spinningLoaderEle = document.getElementById("spinning-loader");
 
+/**
+ * Handles loaded Full size Image and scales it to the correct screen size
+ * @param {Event} e Load image Event
+ */
 function _imageLoadHandler(e) {
   var ratio = Math.max(e.target.naturalHeight/window.innerHeight,e.target.naturalWidth/window.innerWidth);
 
@@ -317,12 +337,17 @@ function _imageLoadHandler(e) {
   spinningLoaderEle.classList.remove("show");
 }
 
+/**
+ * _makeTiles()
+ * Creates Tile objects and instantiates their animation
+ * @param {Array} objectArray Array of Image objects
+ */
 function _makeTiles(objectArray) {
   var docFrag = document.createDocumentFragment();
   var loadedImages = 0;
   
   imageEle.children[0].addEventListener('load', _imageLoadHandler);
-  excess = (objectArray.length > 12) ? objectArray.length - 12 : 0;
+  excess = (objectArray.length > 12) ? objectArray.length - 12 : 0; // nunber of excess images to swap with
 
   objectArray.forEach(function (object,index) {
     var cell = document.createElement('div');
@@ -337,13 +362,13 @@ function _makeTiles(objectArray) {
     // cellFront.style.backgroundImage = "url(" + object.link + ")";
 
     // Loading images with loader
-    _addLoader(cellFront);
+    addLoader(cellFront);
     bgImg.onload = function(){
-      _removeLoader(cell);
+      removeLoader(cell);
       loadedImages++;
       cellFront.style.backgroundImage = 'url(' + bgImg.src + ')';
       if (loadedImages == objectArray.length) {
-        liveLoop();
+        _liveLoop();
       }
     };
     bgImg.src = object.link;
@@ -377,62 +402,37 @@ function _makeTiles(objectArray) {
   return docFrag;
 }
 
-// Initialize Cells
-$ajax(_firebaseBaseUrl+"graphics.json", function (err, snapshot) {
-  if (err) {
-    toastContainer.toast("Could not retrieve Graphic Designs, Try again.")
-    return;
-  }
-  var graphicsContainer = document.getElementById('graphicsContainer');
-  var tiles = _makeTiles(snapshot);
-  graphicsContainer.appendChild(tiles);
-
-  // save live tile references
-  liveTiles = graphicsContainer.getElementsByClassName('live-tile');
-});
-
-// Get random integer within a range inclusive of min and max values
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function hasClass(element, cls) {
-  return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
-}
-
 // Fire Tile update randomly at random intervals
-function liveLoop() {  
+function _liveLoop() {  
   var min = 100; 
   var max = 1000;
   var rand = getRandomInt(min,max);
   setTimeout(function() {
-    updateTile();
-    liveLoop();  
+    _updateTile();
+    _liveLoop();  
   }, rand);
 };
 
 // Tile updating function
-function updateTile() {
+function _updateTile() {
   if (liveTiles) {
     var min = 0; 
     var max = liveTiles.length - 1;
     var rand = getRandomInt(min,max);
     var animationTime = 500;
     var nextIndex;
-
+    
     if(liveTiles[rand].classList.contains('start')) {return;}
     liveTiles[rand].classList.add('start');
     setTimeout(function() {
       liveTiles[rand].classList.remove('start');
     }, 5000);
-
+    
     // Update tile image if there is more than 12 tiles
     if (excess) {
       setTimeout(function() {
         var index = getRandomInt(12,liveTiles.length-1);
-
+        
         // Swap hidden tiles with shown tiles
         if (liveTiles[index].dataset.visible == "false") {
           var temp = {};
@@ -448,6 +448,22 @@ function updateTile() {
   }
   
 }
+
+/**
+ * Initialization of the Controller
+ */
+$ajax(_firebaseBaseUrl+"graphics.json", function (err, snapshot) {
+  if (err) {
+    toastContainer.toast("Could not retrieve Graphic Designs, Try again.")
+    return;
+  }
+  var graphicsContainer = document.getElementById('graphicsContainer');
+  var tiles = _makeTiles(snapshot);
+  graphicsContainer.appendChild(tiles);
+
+  // save live tile references
+  liveTiles = graphicsContainer.getElementsByClassName('live-tile');
+});
 /*
  * My Section Controller
  * purpose: To display Me.

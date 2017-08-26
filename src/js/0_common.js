@@ -122,3 +122,19 @@ function $ajax(ob, callback) {
     callback("timeout",null);
   }
 }
+
+/**
+ * Generic Functions
+ */
+
+// Get random integer within a range inclusive of min and max values
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Test if the element has a class
+function hasClass(element, cls) {
+  return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+}
