@@ -57,7 +57,7 @@ function _makeArticles(wpArticles) {
 }
 
 // Ajax : Get latest 3 articles
-$ajax('http://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3&context=embed', function (err, response) {
+$ajax('https://designedbyashw.in/blog/wp-json/wp/v2/posts?per_page=3&context=embed', function (err, response) {
   if (err) {
     toastContainer.toast("Could not retrieve Blog posts, Try again.")
     return;
